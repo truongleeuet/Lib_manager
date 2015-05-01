@@ -45,9 +45,9 @@
 						<ul>
 							<li><a href='editBook.jsp'><span>Thêm Sách</span></a></li>
 							<li><a href='deleteResource.jsp'><span>Xóa Sách</span></a></li>
-							<li><a href='#'><span>Thêm Bạn Đọc</span></a></li>
-							<li><a href='#'><span>Cập Nhật Bạn Đọc</span></a></li>
-							<li class='last'><a href='#'><span>Xóa Bạn Đọc</span></a></li>
+							<li><a href='editPatron.jsp'><span>Thêm Bạn Đọc</span></a></li>
+							<li><a href='editPatron.jsp'><span>Cập Nhật Bạn Đọc</span></a></li>
+							<li class='last'><a href='deletePatron.jsp'><span>Xóa Bạn Đọc</span></a></li>
 						</ul></li>
 					<%
 						}
