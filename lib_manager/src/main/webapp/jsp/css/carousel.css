@@ -1,0 +1,22 @@
+.container{
+	width:966px;
+	height:230px;
+	margin-left: 200px;
+}
+.carousel-inner>.item>img {
+	width: 50%;
+	height: 30%;
+	margin: auto;
+/* 	margin-left: 220px; */
+}
+.tales {
+  width: 100%;
+}
+.carousel-inner{
+  width:100%;
+  max-height: 200px !important;
+}
+a.left.carousel-control,a.right.carousel-control{
+	width:140px;
+	height:200px;
+}

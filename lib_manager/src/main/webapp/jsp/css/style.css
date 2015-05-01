@@ -1,0 +1,27 @@
+body{
+	background-image: url(img/library2.JPG);
+}
+.wrapmiddel{
+	width:966px;
+	height:1100px;
+	margin-left: 200px;
+}
+div.sidebar{
+	float:left;
+	width:256px;
+	
+}
+div.body{
+	float:right;
+	width:710px;
+}
+iframe{
+	width:100%;
+	border: none;
+}
+.style1{
+	color: red;
+}
+.style2{
+	color: red;
+}

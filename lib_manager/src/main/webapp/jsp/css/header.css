@@ -1,0 +1,35 @@
+
+.wrapheader{
+	width:966px;
+	height:107px;
+	margin-left: 200px;
+	background:#ecf0f1;
+	font-family: sans-serif;
+}
+.user{
+	width:300px;
+	margin-left:630px;
+	padding-top: 20px;
+}
+.menuheader{
+	width:783px;
+	height:50px;
+	float: left;
+	margin-top: 15px;
+}
+img.imgcompany{
+	width:183px;
+	height:107px;
+	float:left;
+}
+ul.nav.nav-pills{
+	height:41px;
+}
+a{
+	width:120px;
+	height:41px;
+}
+li a img{
+	width:10px;
+	height:20px;
+}

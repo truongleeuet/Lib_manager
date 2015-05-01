@@ -1,0 +1,22 @@
+.bodybook{
+	background:#33FFCC;
+	width:710px;
+
+}
+p {
+	color : #000000;
+	margin-top : 5px;
+	padding-bottom : 10px;
+	margin-bottom : 0px;
+	margin-left : 20px;
+	margin-right : 20px;
+	font-size : 11px;
+	font-family : sans-serif;
+}
+p a {
+	color : #000000;
+	font-weight: bold;
+}
+p a:hover {
+	color : #294A7B;
+}
