@@ -61,7 +61,7 @@
  		action = "ADD_PATRON";
  	}
  	//Format ngày sinh của bạn đọc theo đúng định dạng
- 	DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+ 	DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
  	String date = df.format(patron.getBirthday());
 
  	//Tuỳ theo kiểu bạn đọc mà ta tạo đối tượng nào cho đúng
@@ -166,6 +166,14 @@
 									<table width="95%" border="0" align="center">
 										<tr>
 											<td width="29%"><p>
+													<strong>Mã đăng nhập : </strong>
+												</p></td>
+											<td width="71%"><input name="patron.userID"
+												type="text" id="patron.userID" size="35"
+												value="<%=patron.getUser_id()%>" /></td>
+										</tr>
+										<tr>
+											<td width="29%"><p>
 													<strong>Tên đăng nhập : </strong>
 												</p></td>
 											<td width="71%"><input name="patron.userName"
@@ -192,7 +200,7 @@
 											<td><p>
 													<strong>Ngày sinh : </strong>
 												</p></td>
-											<td><input name="patron.birthday" type="text"
+											<td><input name="patron.birthday" type="date"
 												id="patron.birthday" size="35" value="<%=date%>" /></td>
 										</tr>
 										<tr>
@@ -302,14 +310,7 @@
 											</tr>
 										</table>
 									</div>
-								</form> <script type="text/javascript">
-									Calendar.setup({
-										inputField : "patron.birthday", // ID of the input field
-										ifFormat : "%d/%m/%Y", // the date format
-										button : "patron.birthday" // ID of the button
-									});
-								</script>
-
+								</form> 
 
 								<p class="right">&nbsp;</p>
 							</td>

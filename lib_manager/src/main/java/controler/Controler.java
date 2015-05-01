@@ -26,6 +26,7 @@ import manager.ResourceRequestManager;
 import manager.ResourceRequestManagetImpl;
 import manager.resource.Resource;
 import manager.resource.ResourceManager;
+import manager.user.AbstractUserManager;
 import manager.user.Faculty;
 import manager.user.FacultyManager;
 import manager.user.LibManager;
@@ -510,8 +511,7 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		UserManager userManager = new StudentManager();
 		String type = userManager.checkUserName(userName);
 		if (type == null) {
-			request.setAttribute("messageErr",
-					"TÃªn Ä‘Äƒng nháº­p nÃ y khÃ´ng tá»“n táº¡i");
+			request.setAttribute("messageErr","Tên đăng nhập này không tồn tại");
 			jsp = "updatePatron.jsp";
 			dispatch(jsp, request, response);
 		}
@@ -646,12 +646,13 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 
 	public void addPatron(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		String userID = request.getParameter("patron.userID");
 		String userName = request.getParameter("patron.userName");
 		String password = request.getParameter("patron.password");
 		String fullName = request.getParameter("patron.fullName");
 
 		String birthday = request.getParameter("patron.birthday");
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		java.util.Date date = null;
 		try {
 			date = df.parse(birthday);
@@ -671,15 +672,15 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		String facultySubject = request.getParameter("faculty.subjects");
 		int permission = 0;
 		try {
-			permission = Integer.parseInt(request
-					.getParameter("libManager.permission"));
+			permission = Integer.parseInt(request.getParameter("libManager.permission"));
 		} catch (Exception e) {
 			permission = 1;
 		}
 
-		UserManager userManager = null;
+		AbstractUserManager userManager = null;
 		if (Patron.LIB_MANAGER_TYPE.equals(roles)) {
 			LibManager libManager = new LibManager();
+			libManager.setUser_id(userID);
 			libManager.setUser_name(userName);
 			libManager.setUser_password(password);
 			libManager.setFull_name(fullName);
@@ -688,9 +689,11 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			libManager.setAddress(address);
 			libManager.setPermission(permission);
 			userManager = new LibStaffManager();
+			userManager.addPatron(libManager);
 			userManager.add(libManager);
 		} else if (Patron.FACULTY_TYPE.equals(roles)) {
 			Faculty patron = new Faculty();
+			patron.setUser_id(userID);
 			patron.setUser_name(userName);
 			patron.setUser_password(password);
 			patron.setFull_name(fullName);
@@ -705,6 +708,8 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			userManager.add(patron);
 		} else if (Patron.STUDENT_TYPE.equals(roles)) {
 			Student patron = new Student();
+			//patron.getType();
+			patron.setUser_id(userID);
 			patron.setUser_name(userName);
 			patron.setUser_password(password);
 			patron.setFull_name(fullName);
@@ -715,8 +720,10 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			patron.setDepartment(studentDepartment);
 			patron.setClassrom(studentClassroom);
 			patron.setStudentID(studentID);
+			patron.setStudentName(userName);
 
 			userManager = new StudentManager();
+			//userManager.addPatron(patron);
 			userManager.add(patron);
 		}
 		jsp = "index.jsp";

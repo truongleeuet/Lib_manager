@@ -14,6 +14,8 @@ import sql.SqlExecute;
 public class LibStaffManager extends AbstractUserManager {
 	private final String LIB_MANAGER_TABLE_NAME="lib_manager";
 	//private final String PATRON_ID = "";
+	private final String LIB_ID = "lib_manager_id";
+	private final String LIB_NAME = "user_name";
 	private final String LIB_MANAGER_PERMISSION="permission";
 
 	public boolean add(Patron patron) {
@@ -22,14 +24,14 @@ public class LibStaffManager extends AbstractUserManager {
 			System.out.println("Ban insert khong dung kieu");
 			return false ;
 		}
-		boolean insertOK = super.insert(patron);
+		boolean insertOK = super.addPatron(patron);
 		if(!insertOK){
-			System.out.println("Insert vao bang Resource bi loi");
+			System.out.println("Insert vao bang Patron bi loi");
 			return false ;
 		}
 		String sql = "INSERT INTO "+ LIB_MANAGER_TABLE_NAME +
-					"(" + PATRON_USER_NAME +","+ LIB_MANAGER_PERMISSION + ")" +
-					"VALUES(?,?)";
+					"(" + LIB_ID + "," + LIB_NAME +","+ LIB_MANAGER_PERMISSION + ")" +
+					"VALUES(?,?,?)";
 		Connection connection = SqlExecute.getConnection();
 		if(connection == null){
 			System.out.println("Loi ket noi CSDL");
@@ -42,9 +44,9 @@ public class LibStaffManager extends AbstractUserManager {
 				return false ;
 			}
 			LibManager libManager = (LibManager)patron;
-			
-			preparedStatement.setString(1, libManager.getUser_name());
-			preparedStatement.setInt(2, libManager.getPermission());
+			preparedStatement.setString(1, libManager.getUser_id());
+			preparedStatement.setString(2, libManager.getUser_name());
+			preparedStatement.setInt(3, libManager.getPermission());
 			
 			preparedStatement.executeUpdate();
 			//Dong ket noi

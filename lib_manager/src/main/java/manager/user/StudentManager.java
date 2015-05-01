@@ -1,12 +1,12 @@
 package manager.user;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 import sql.SqlExecute;
 
@@ -19,16 +19,17 @@ public class StudentManager extends AbstractUserManager {
 	private final String STUDENT_NAME= "user_name";
 	private final String STUDENT_CLASSROOM="classroom";
 	private final String STUDENT_DEPARTMENT="department";
-
+	
 	public boolean add(Patron patron) {
 		// TODO Auto-generated method stub
+//		 
 		if(!(patron instanceof Student)){
 			System.out.println("Ban insert khong dung kieu");
 			return false ;
 		}
-		boolean insertOK = super.insert(patron);
+		boolean insertOK = super.addPatron(patron);
 		if(!insertOK){
-			System.out.println("Insert vao bang Resource bi loi");
+			System.out.println("Insert vao bang Patron bi loi");
 			return false ;
 		}
 		String sql = "INSERT INTO "+ STUDENT_TABLE_NAME +

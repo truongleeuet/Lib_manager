@@ -14,6 +14,8 @@ import sql.SqlExecute;
 public class FacultyManager extends AbstractUserManager {
 	private final String FACULTY_TABLE_NAME="faculty";
 	//private final String PATRON_ID="";
+	private final String FACULTY_ID = "faculty_id";
+	private final String FACULTY_NAME ="user_name";
 	private final String FACULTY_DEPARTMENT="department";
 	private final String FACULTY_SUBJECTS="subjects";
 
@@ -23,14 +25,14 @@ public class FacultyManager extends AbstractUserManager {
 			System.out.println("Ban insert khong dung kieu");
 			return false ;
 		}
-		boolean insertOK = super.insert(patron);
+		boolean insertOK = super.addPatron(patron);
 		if(!insertOK){
-			System.out.println("Insert vao bang Resource bi loi");
+			System.out.println("Insert vao bang Faculty bi loi");
 			return false ;
 		}
 		String sql = "INSERT INTO "+ FACULTY_TABLE_NAME +
-					"(" + PATRON_USER_NAME +","+ FACULTY_DEPARTMENT +","+ FACULTY_SUBJECTS + ")" +
-					"VALUES(?,?,?)";
+					"(" + FACULTY_ID + ","  + FACULTY_NAME +","+ FACULTY_DEPARTMENT +","+ FACULTY_SUBJECTS + ")" +
+					"VALUES(?,?,?,?)";
 		Connection connection = SqlExecute.getConnection();
 		if(connection == null){
 			System.out.println("Loi ket noi CSDL");
@@ -43,10 +45,10 @@ public class FacultyManager extends AbstractUserManager {
 				return false ;
 			}
 			Faculty faculty = (Faculty)patron;
-			
-			preparedStatement.setString(1, faculty.getUser_name());
-			preparedStatement.setString(2, faculty.getDepartment());
-			preparedStatement.setString(3, faculty.getSubjects());
+			preparedStatement.setString(1, faculty.getUser_id());
+			preparedStatement.setString(2, faculty.getUser_name());
+			preparedStatement.setString(3, faculty.getDepartment());
+			preparedStatement.setString(4, faculty.getSubjects());
 			
 			preparedStatement.executeUpdate();
 			//Dong ket noi
