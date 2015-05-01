@@ -69,7 +69,7 @@
 		while (i < records && i + (currentPages - 1) * records < totalRecords) {
 			resource = list.get(i + (currentPages - 1) * records);
 			i++;
-			tmp += "<div class=\"bookdiv\" style=\" width: 220px; height: 258px; boder: 1px solid #CCC; float: left;background:#ecf0f1;margin-left: 10px;margin-bottom: 10px;margin-top: 10px;\">";
+			tmp += "<div class=\"bookdiv\" style=\" width: 220px; height: 258px; boder: 1px solid #CCC; float: left;background:#ecf0f1;margin-left: 13px;margin-bottom: 10px;margin-top: 10px;\">";
 			tmp += "	<img class=\"imagebook\" src=\" " + resource.getImages()
 					+ "\"" + " alt=\"Hinhanh\" style=\" width: 128px; height:168px;margin-left: 46px;\"></img>";
 			tmp += "	<p align=\"center\" >";
