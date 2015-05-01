@@ -15,7 +15,7 @@
 
 <script>
 	jQuery(function() {
-		$(".input_text").autocomplete("listbook.jsp");
+		$(".inputtext").autocomplete("listbook.jsp");
 	});
 </script>
 <script>
@@ -93,7 +93,7 @@
 										<tr>
 											<td width="45"><p>Tên của cuốn sách mượn :</p></td>
 											<td><input name="checkOut.Isbn" type="text"
-												id="checkOut.Isbn" class="input_text"></td>
+												id="checkOut.Isbn" class="inputtext"></td>
 										</tr>
 										<tr>
 											<td>&nbsp;</td>

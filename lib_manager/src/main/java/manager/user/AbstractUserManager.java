@@ -81,9 +81,9 @@ public abstract class AbstractUserManager implements UserManager {
 	 * @param userName
 	 * @return true if success
 	 */
-	public boolean delete(String userName) {
+	public boolean delete(String userID) {
 		String sql = "DELETE FROM " + PATRON_TABLE_NAME + " WHERE "
-				+ PATRON_USER_NAME + " = '" + userName + "'";
+				+ PATRON_USER_ID + " = '" + userID + "'";
 		return SqlExecute.executeUpdate(sql);
 	}
 

@@ -104,13 +104,13 @@ public class StudentManager extends AbstractUserManager {
 		return list;
 	}
 
-	public boolean remove(String userName) {
+	public boolean remove(String userID) {
 		// TODO Auto-generated method stub
 		
 		String sql = "DELETE FROM "+STUDENT_TABLE_NAME + 
-				" WHERE " + PATRON_USER_NAME + " = '"+userName + "'"; 
+				" WHERE " + STUDENT_ID + " = '"+userID + "'"; 
 		SqlExecute.executeUpdate(sql);
-		return super.delete(userName);
+		return super.delete(userID);
 		
 	}
 
