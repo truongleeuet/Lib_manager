@@ -6,7 +6,8 @@
 <%@ page import="support.JSONSimpleReadingFromFileExample"%>
 <%@ page import="com.github.sarxos.webcam.*"%>
 <%@ page import="com.google.zxing.*"%>
-<%@ page import="com.google.zxing.client.j2se.BufferedImageLuminanceSource"%>
+<%@ page
+	import="com.google.zxing.client.j2se.BufferedImageLuminanceSource"%>
 <%@ page import="com.google.zxing.common.HybridBinarizer"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -204,17 +205,12 @@
 							</td>
 						</tr>
 					</table>
+				</div>
+				<div>
+					<jsp:include page="footer.jsp" flush="true" />
+				</div>
 			</td>
-
 		</tr>
-
-	</table>
-	</div>
-	<div>
-		<jsp:include page="footer.jsp" flush="true" />
-	</div>
-	</td>
-	</tr>
 	</table>
 
 </body>
