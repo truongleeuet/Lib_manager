@@ -15,6 +15,8 @@
 						<script src="bootstrap/js/npm.js"></script>
 						<script src="jquery/jquery-2.1.3.js"></script>
 						<script src="jquery/jquery-2.1.3.min.js"></script>
+						<script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
+						<script src="jquery/jquery.autocomplete.js"></script>
 						<script type="text/javascript">
 							$(document).ready(function() {
 								$('ul.nav > li ').click(function(e) {
@@ -23,6 +25,11 @@
 									$('ul.nav > li ').removeClass('active');
 									$(this).addClass('active');
 								});
+							});
+						</script>
+						<script>
+							jQuery(function() {
+								$(".bookisbn").autocomplete("listbook.jsp");
 							});
 						</script>
 						<title>request - lib manager sys</title> <%
@@ -41,7 +48,9 @@
 
 
 
-						<link rel="stylesheet" type="text/css" href="css/style.css">
+						<link rel="stylesheet" type="text/css" href="css/style.css" />
+						<link rel="stylesheet" type="text/css" href="css/style1.css" />
+						<link rel="stylesheet" type="text/css" href="css/stylesugess.css" />
 </head>
 
 <body>
@@ -73,21 +82,21 @@
 									<p>Thông tin đặt sách :</p>
 								</div>
 
-								<form name="formRequest" method="post" action="controler">
+								<form name="formRequest" method="get" action="controler">
 									<table width="95%" border="0" align="center">
 										<tr>
 											<td width="37%">&nbsp;</td>
 											<td width="63%"><p class="style2"><%=messageErr%></p></td>
 										</tr>
 										<tr>
-											<td><p>Tên đăng nhập của người đặt :</p></td>
-											<td><input name="request.userName" type="text"
-												id="request.userName" size="35" value="<%=logedIn%>"></td>
+											<td><p>Mã đăng nhập của người đặt :</p></td>
+											<td><input name="request.userID" type="text"
+												id="request.userID" size="35" value="<%=logedIn%>"></td>
 										</tr>
 										<tr>
 											<td><p>Mã của cuốn sách đặt :</p></td>
 											<td><input name="request.Isbn" type="text"
-												id="request.Isbn" size="35"></td>
+												id="request.Isbn" size="35" class="bookisbn"></td>
 										</tr>
 										<tr>
 											<td><p>Ngày mượn :</p></td>
@@ -104,7 +113,7 @@
 												</div></td>
 										</tr>
 									</table>
-								</form> 
+								</form>
 								<p>&nbsp;</p>
 								<p>&nbsp;</p>
 								<p class="right"></p>

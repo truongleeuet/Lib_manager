@@ -162,7 +162,7 @@
 								<p class="style1">Thông tin bạn đọc :</p>
 
 
-								<form name="formEditPatron" method="post" action="controler">
+								<form name="formEditPatron" method="get" action="controler">
 									<table width="95%" border="0" align="center">
 										<tr>
 											<td width="29%"><p>

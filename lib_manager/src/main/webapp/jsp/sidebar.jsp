@@ -45,7 +45,7 @@
 				<li class='has-sub'><a href='#'><span>Nhật kí mượn trả</span></a>
 					<ul>
 						<li><a href='diaryuser.jsp'><span>Người dùng</span></a></li>
-						<li class='last'><a href='#'><span>Book</span></a></li>
+						<li class='last'><a href='diarybook.jsp'><span>Book</span></a></li>
 					</ul>
 				</li>
 				<li class='last'><a href='#'><span>Manager</span></a>

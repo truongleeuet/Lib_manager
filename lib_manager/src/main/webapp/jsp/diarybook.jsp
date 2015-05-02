@@ -8,58 +8,60 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
-		<link rel="stylesheet" href="bootstrap/css/bootstrap.css.map">
-			<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css">
-				<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css.map">
-					<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
-						<script src="bootstrap/js/bootstrap.js"></script>
-						<script src="bootstrap/js/bootstrap.min.js"></script>
-						<script src="bootstrap/js/npm.js"></script>
-						<script src="jquery/jquery-2.1.3.js"></script>
-						<script src="jquery/jquery-2.1.3.min.js"></script>
-						<script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
-						<script src="jquery/jquery.autocomplete.js"></script>
-						<script type="text/javascript">
-							$(document).ready(function() {
-								$('ul.nav > li ').click(function(e) {
-									// 			alert('clicked');
-									//e.preventDefault();
-									$('ul.nav > li ').removeClass('active');
-									$(this).addClass('active');
-								});
-							});
-						</script>
+<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.css.map">
+<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css.map">
+<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+<script src="bootstrap/js/bootstrap.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="bootstrap/js/npm.js"></script>
+<script src="jquery/jquery-2.1.3.js"></script>
+<script src="jquery/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
+<script src="jquery/jquery.autocomplete.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('ul.nav > li ').click(function(e) {
+			// 			alert('clicked');
+			//e.preventDefault();
+			$('ul.nav > li ').removeClass('active');
+			$(this).addClass('active');
+		});
+	});
+</script>
 
 
-						
-						<script>
-							jQuery(function() {
-								$(".userid").autocomplete("listpatron.jsp");
-							});
-						</script>
-<title>check in - lib manager sys</title> <!--Đoạn mã đọc session để kiểm tra xem đã đăng nhập chưa,
+
+<script>
+	jQuery(function() {
+		$(".bookisbn").autocomplete("listbook.jsp");
+	});
+</script>
+<title>check in - lib manager sys</title>
+<!--Đoạn mã đọc session để kiểm tra xem đã đăng nhập chưa,
 	Nếu rồi thì đó là sinh viên, giảng viên hay nhân viên thư viện -->
 <%
-		String logedIn = (String) session.getAttribute("login.done");
-		String roles = (String) session.getAttribute("patron.roles");
+	String logedIn = (String) session.getAttribute("login.done");
+	String roles = (String) session.getAttribute("patron.roles");
 
-							//roles = "PATRON_LIB_MANAGER";
-							//Nếu chưa đăng nhập hoặc không fải là nhân viên thư viện thì không được truy cập trang này
+	//roles = "PATRON_LIB_MANAGER";
+	//Nếu chưa đăng nhập hoặc không fải là nhân viên thư viện thì không được truy cập trang này
 
-		if (logedIn == null || !"PATRON_LIB_MANAGER".equals(roles)) {
-				response.sendRedirect("login.jsp");
-		}
-		String messageErr = (String) request.getAttribute("messageErr");
-		if (messageErr == null) {
-				messageErr = "";
-		}
-		List<ResourceBorrow> listborrow = (List<ResourceBorrow>) session.getAttribute("listborrowuser");
-		%>
+	if (logedIn == null || !"PATRON_LIB_MANAGER".equals(roles)) {
+		response.sendRedirect("login.jsp");
+	}
+	String messageErr = (String) request.getAttribute("messageErr");
+	if (messageErr == null) {
+		messageErr = "";
+	}
+	List<ResourceBorrow> listborrow = (List<ResourceBorrow>) session
+			.getAttribute("listborrowbook");
+%>
 
-						<link rel="stylesheet" type="text/css" href="css/style.css" />
-						<link rel="stylesheet" type="text/css" href="css/style1.css" />
-						<link rel="stylesheet" type="text/css" href="css/stylesugess.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/style1.css" />
+<link rel="stylesheet" type="text/css" href="css/stylesugess.css" />
 </head>
 
 <body>
@@ -101,18 +103,18 @@
 										</tr>
 										<tr>
 											<td><p>
-													<strong>Mã đăng nhập của người mượn : </strong>
+													<strong>Mã sách : </strong>
 												</p></td>
-											<td><input name="diaryUser.userID" type="text"
-												id="diaryUser.userID" size="35" class="userid"></td>
+											<td><input name="diaryBook.bookIsbn" type="text"
+												id="diaryBook.bookIsbn" size="35" class="bookisbn"></td>
 										</tr>
 										<tr>
 											<td>&nbsp;</td>
 											<td><div align="center">
 
-													<input name="action" type="hidden" value="DIARY_USER" /> <input
+													<input name="action" type="hidden" value="DIARY_BOOK" /> <input
 														name="checkIn.submit" type="submit" id="checkIn.date">
-														
+
 												</div></td>
 										</tr>
 									</table>
@@ -127,8 +129,8 @@
 					</table>
 					<table id="diaryuser">
 						<tr>
-							<th>Mã người dùng</th>
 							<th>Mã Sách</th>
+							<th>Mã người dùng</th>
 							<th>Ngày mượn</th>
 							<th>Ngày phải trả</th>
 							<th>Ngày trả</th>
@@ -138,8 +140,8 @@
 								for (int i = 0; i < listborrow.size(); i++) {
 						%>
 						<tr>
-							<td><%=listborrow.get(i).getPatronID()%></td>
 							<td><%=listborrow.get(i).getResourceID()%></td>
+							<td><%=listborrow.get(i).getPatronID()%></td>
 							<td><%=listborrow.get(i).getBorrowDate()%></td>
 							<td><%=listborrow.get(i).getRenderDate()%></td>
 							<td><%=listborrow.get(i).getPayDate()%></td>

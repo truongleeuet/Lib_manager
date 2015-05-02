@@ -42,7 +42,7 @@ import support.JSONSimpleReadingFromFileExample;
  * Servlet implementation class for Servlet: Controler
  * 
  */
- 
+
 public class Controler extends javax.servlet.http.HttpServlet implements
 		javax.servlet.Servlet {
 	static final long serialVersionUID = 1L;
@@ -69,13 +69,14 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		ResourceManager resourcemanager = new ResourceManager();
-//		List<Resource> listComputer = resourcemanager.listKindBook("Computer");
-//		HttpSession session = request.getSession();
-//		response.setContentType("application/json");
-//		System.out.print(new Gson().toJson(listComputer));
-//		response.getWriter().write(new Gson().toJson(listComputer));
-//		System.out.print(new Gson().toJson(listComputer));
+		// ResourceManager resourcemanager = new ResourceManager();
+		// List<Resource> listComputer =
+		// resourcemanager.listKindBook("Computer");
+		// HttpSession session = request.getSession();
+		// response.setContentType("application/json");
+		// System.out.print(new Gson().toJson(listComputer));
+		// response.getWriter().write(new Gson().toJson(listComputer));
+		// System.out.print(new Gson().toJson(listComputer));
 		/* session.setAttribute("ListCom", listComputer); */
 		doPost(request, response);
 
@@ -89,7 +90,7 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-	
+
 		// TODO Auto-generated method stub
 
 		// request.setCharacterEncoding("UTF-8");
@@ -157,9 +158,10 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			borrowed(request, response);
 		} else if ("REQUESTED".equals(action)) {
 			requested(request, response);
-		} else if ("DIARY_USER".equals(action)){
+		} else if ("DIARY_USER".equals(action)) {
 			diaryUser(request, response);
-		}
+		} else if ("DIARY_BOOK".equals(action))
+			diaryBook(request, response);
 	}
 
 	public void checkIn(HttpServletRequest request, HttpServletResponse response)
@@ -171,7 +173,7 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		ResourceManager resourceManager = new ResourceManager();
 
 		ResourceBorrowManager resourceBorrowManager = new ResourceBorrowManagerImpl();
-		ResourceBorrow resourceBorrow = resourceBorrowManager.get(Isbn,userID);
+		ResourceBorrow resourceBorrow = resourceBorrowManager.get(Isbn, userID);
 		if (resourceBorrow == null) {
 			jsp = "checkIn.jsp";
 			String messageErr = "Không có thông tin bạn đọc hoặc tài nguyên với thông tin như trên";
@@ -181,9 +183,10 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			request.setAttribute("resourceBorrow", resourceBorrow);
 			jsp = "loadCheckIn.jsp";
 		} else if ("DELETE".equals(checkInType)) {
-			//resourceBorrowManager.remove(resourceBorrow.getResourceID(),resourceBorrow.getPatronID());
-			//DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-			//ResourceBorrow resBorrow = resourceBorrowManager.get(userID, Isbn);
+			// resourceBorrowManager.remove(resourceBorrow.getResourceID(),resourceBorrow.getPatronID());
+			// DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+			// ResourceBorrow resBorrow = resourceBorrowManager.get(userID,
+			// Isbn);
 			Calendar calendar = Calendar.getInstance();
 			java.util.Date payDate = calendar.getTime();
 			resourceBorrow.setPayDate(payDate);
@@ -203,10 +206,10 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		// ResourceRequestManager resourceRequestManager = new
 		// ResourceRequestManagetImpl();
 
-		ResourceBorrow resourceBorrow = resourceBorrowManager.get(Isbn,userID);
+		ResourceBorrow resourceBorrow = resourceBorrowManager.get(Isbn, userID);
 		// ResourceRequest resourceRequest =
 		// resourceRequestManager.get(Isbn, userName);
-		//System.out.println(resourceBorrow.getPatronID());
+		// System.out.println(resourceBorrow.getPatronID());
 		try {
 			if (resourceBorrow != null) {
 				String messageErr = "Bạn đang mượn cuốn sách này";
@@ -222,16 +225,16 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		UserManager userManager = new StudentManager();
 		ResourceManager resourceManager = new ResourceManager();
 		resourceBorrowManager = new ResourceBorrowManagerImpl();
-		
+
 		String patronType = userManager.checkUserName(userID);
 		Resource resource = resourceManager.get(Isbn);
 
-//		String testIsbn = resource.getIsbn();
-//		if (testIsbn == null) {
-//			testIsbn = "";
-//		}
-//
-//		Boolean test = testIsbn.equals(Isbn);
+		// String testIsbn = resource.getIsbn();
+		// if (testIsbn == null) {
+		// testIsbn = "";
+		// }
+		//
+		// Boolean test = testIsbn.equals(Isbn);
 
 		if ((patronType == null) || (resource == null)) {
 			String messageErr = "Không có bạn đọc hoặc tài nguyên với thông tin như trên";
@@ -255,7 +258,8 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		// Resource resource = resourceManager.get(Isbn);
 		int number = resource.getAmount();
 		System.out.println(number);
-		List<ResourceBorrow> list = resourceBorrowManager.getAllByResource(Isbn);
+		List<ResourceBorrow> list = resourceBorrowManager
+				.getAllByResource(Isbn);
 		if (list == null) {
 			list = new ArrayList<ResourceBorrow>();
 		}
@@ -282,7 +286,7 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			resourceBorrow.setPatronID(userID);
 
 			// Luu vao CSDL
-			
+
 			resourceBorrowManager.add(resourceBorrow);
 			resourceManager.decreaseAmount(Isbn);
 			jsp = "index.jsp";
@@ -298,89 +302,101 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 
 	public void request(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String userName = request.getParameter("request.userName");
+		String userID = request.getParameter("request.userID");
 		String Isbn = request.getParameter("request.Isbn");
 
 		// Check xem da dat sach nay hay muon sach nay chua
 		ResourceBorrowManager resourceBorrowManager = new ResourceBorrowManagerImpl();
 		ResourceRequestManager resourceRequestManager = new ResourceRequestManagetImpl();
 
-		ResourceBorrow resourceBorrow = resourceBorrowManager.get(Isbn,
-				userName);
+		ResourceBorrow resourceBorrow = resourceBorrowManager.get(Isbn, userID);
 		ResourceRequest resourceRequest = resourceRequestManager.get(Isbn,
-				userName);
-
+				userID);
+		if (resourceBorrow == null) {
+			System.out.println("fhjkasfkasfhkjasdfh");
+		}
+		if (resourceRequest == null) {
+			System.out.println("aaaaaaaaaaa");
+		}
 		if (resourceBorrow != null || resourceRequest != null) {
-			String messageErr = "Báº¡n Ä‘Ã£ Ä‘áº·t hoáº·c mÆ°á»£n cuá»‘n sÃ¡ch nÃ y rá»“i";
+			String messageErr = "Bạn đã đặt hoặc mượn cuốn sách này rồi";
 			jsp = "request.jsp";
 			request.setAttribute("messageErr", messageErr);
 			dispatch(jsp, request, response);
+		} else {
+
+			UserManager userManager = new StudentManager();
+			String roles = userManager.checkUserName(userID);
+			if (roles == null) {
+				jsp = "login.jsp";
+				dispatch(jsp, request, response);
+			}
+			ResourceManager resourceManager = new ResourceManager();
+
+			String date = request.getParameter("request.date");
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date borrowDate;
+			try {
+				borrowDate = df.parse(date);
+			} catch (Exception e) {
+				borrowDate = new java.util.Date();
+			}
+
+			Resource resource = null;
+			Calendar dateBorrow = Calendar.getInstance();
+			dateBorrow.setTime(borrowDate);
+			dateBorrow.add(Calendar.HOUR_OF_DAY, 23);
+			dateBorrow.add(Calendar.MINUTE, 59);
+			dateBorrow.add(Calendar.SECOND, 59);
+			resourceManager = new ResourceManager();
+			Calendar currentcalendar = Calendar.getInstance();
+			java.util.Date datetest = dateBorrow.getTime();
+			boolean test = dateBorrow.before(currentcalendar);
+			System.out.println("jfskdjflas" + test);
+//			 System.out.println(borrowDate);
+//			 System.out.println(datetest);
+//			 System.out.println(dateBorrow);
+//			 System.out.println(currentcalendar);
+			if (test) {
+				String messageErr = "Ngày mượn không đúng";
+				jsp = "request.jsp";
+				request.setAttribute("messageErr", messageErr);
+				dispatch(jsp, request, response);
+			} else {
+
+				resourceBorrowManager = new ResourceBorrowManagerImpl();
+				resource = resourceManager.get(Isbn);
+				int resourceAmount = resource.getAmount();
+//				int resourceBorrowed = resourceBorrowManager.getAllByResource(Isbn).size();
+
+				if (resourceAmount >0) {
+					String messageErr = "Tài nguyên này còn trong thư viện bạn có thể mượn";
+					jsp = "request.jsp";
+					request.setAttribute("messageErr", messageErr);
+					resourceRequestManager = new ResourceRequestManagetImpl();
+					resourceRequest = new ResourceRequest();
+					resourceRequest.setResourceID(Isbn);
+					resourceRequest.setPatronID(userID);
+					resourceRequest.setBorrowDate(borrowDate);
+					resourceRequestManager.add(resourceRequest);
+					resourceManager.decreaseAmount(Isbn);
+					dispatch(jsp, request, response);
+				} else {
+//					resourceRequestManager = new ResourceRequestManagetImpl();
+//					resourceRequest = new ResourceRequest();
+//					resourceRequest.setResourceID(Isbn);
+//					resourceRequest.setPatronID(userID);
+//					resourceRequest.setBorrowDate(borrowDate);
+//					resourceRequestManager.add(resourceRequest);
+//					resourceManager.decreaseAmount(Isbn);
+					String messageErr = "Tài nguyên này đã hết";
+					jsp = "request.jsp";
+					request.setAttribute("messageErr", messageErr);
+//					jsp = "index.jsp";
+					dispatch(jsp, request, response);
+				}
+			}
 		}
-
-		UserManager userManager = new StudentManager();
-		String roles = userManager.checkUserName(userName);
-		if (roles == null) {
-			jsp = "login.jsp";
-			dispatch(jsp, request, response);
-		}
-		ResourceManager resourceManager = new ResourceManager();
-
-		String date = request.getParameter("request.date");
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		java.util.Date borrowDate;
-		try {
-			borrowDate = df.parse(date);
-		} catch (Exception e) {
-			borrowDate = new java.util.Date();
-		}
-
-		Resource resource = null;
-		Calendar dateBorrow = Calendar.getInstance();
-		dateBorrow.setTime(borrowDate);
-		dateBorrow.add(Calendar.HOUR_OF_DAY, 23);
-		dateBorrow.add(Calendar.MINUTE, 59);
-		dateBorrow.add(Calendar.SECOND, 59);
-		resourceManager = new ResourceManager();
-		Calendar currentcalendar = Calendar.getInstance();
-		java.util.Date datetest = dateBorrow.getTime();
-		// java.util.Date currentdate = currentcalendar.getTime();
-		// int i = borrowDate.compareTo(currentdate);
-		boolean test = dateBorrow.before(currentcalendar);
-		System.out.println("jfskdjflas" + test);
-		System.out.println(borrowDate);
-		System.out.println(datetest);
-		System.out.println(dateBorrow);
-		System.out.println(currentcalendar);
-		if (test) {
-			String messageErr = "NgÃ y mÆ°á»£n khÃ´ng Ä‘Ãºng";
-			jsp = "request.jsp";
-			request.setAttribute("messageErr", messageErr);
-			dispatch(jsp, request, response);
-		}
-
-		resourceBorrowManager = new ResourceBorrowManagerImpl();
-		resource = resourceManager.get(Isbn);
-		int resourceAmount = resource.getAmount();
-		int resourceBorrowed = resourceBorrowManager.getAllByResource(Isbn)
-				.size();
-
-		if (resourceBorrowed < resourceAmount) {
-			String messageErr = "TÃ i nguyÃªn nÃ y cÃ²n trong thÆ° viá»‡n ban cÃ³ thá»ƒ mÆ°á»£n";
-			jsp = "request.jsp";
-			request.setAttribute("messageErr", messageErr);
-			dispatch(jsp, request, response);
-		}
-
-		resourceRequestManager = new ResourceRequestManagetImpl();
-		resourceRequest = new ResourceRequest();
-		resourceRequest.setResourceID(Isbn);
-		resourceRequest.setPatronID(userName);
-		resourceRequest.setBorrowDate(borrowDate);
-		resourceRequestManager.add(resourceRequest);
-		resourceManager.decreaseAmount(Isbn);
-
-		jsp = "index.jsp";
-		dispatch(jsp, request, response);
 	}
 
 	public void viewResource(HttpServletRequest request,
@@ -394,9 +410,9 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		jsp = "viewBook.jsp";
 		resourceManager = new ResourceManager();
 		resource = resourceManager.get(Isbn);
-//		if (Patron.LIB_MANAGER_TYPE.equals(roles)) {
-//			jsp = "editBook.jsp";
-//		}
+		// if (Patron.LIB_MANAGER_TYPE.equals(roles)) {
+		// jsp = "editBook.jsp";
+		// }
 		request.setAttribute("book_edit", resource);
 
 		dispatch(jsp, request, response);
@@ -432,8 +448,9 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			throws Exception {
 		HttpSession session = request.getSession();
 		String isbn = request.getParameter("book.isbn");
-//		JSONSimpleReadingFromFileExample json = new JSONSimpleReadingFromFileExample();
-//		Resource resources = (Resource) session.getAttribute("bookinfo");
+		// JSONSimpleReadingFromFileExample json = new
+		// JSONSimpleReadingFromFileExample();
+		// Resource resources = (Resource) session.getAttribute("bookinfo");
 		String name = request.getParameter("book.name");
 		String categories = request.getParameter("book.domain");
 		String authors = request.getParameter("book.authors");
@@ -517,7 +534,8 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		UserManager userManager = new StudentManager();
 		String type = userManager.checkUserName(userName);
 		if (type == null) {
-			request.setAttribute("messageErr","Tên đăng nhập này không tồn tại");
+			request.setAttribute("messageErr",
+					"Tên đăng nhập này không tồn tại");
 			jsp = "updatePatron.jsp";
 			dispatch(jsp, request, response);
 		}
@@ -658,7 +676,7 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		String fullName = request.getParameter("patron.fullName");
 
 		String birthday = request.getParameter("patron.birthday");
-		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date date = null;
 		try {
 			date = df.parse(birthday);
@@ -678,7 +696,8 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		String facultySubject = request.getParameter("faculty.subjects");
 		int permission = 0;
 		try {
-			permission = Integer.parseInt(request.getParameter("libManager.permission"));
+			permission = Integer.parseInt(request
+					.getParameter("libManager.permission"));
 		} catch (Exception e) {
 			permission = 1;
 		}
@@ -714,7 +733,7 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			userManager.add(patron);
 		} else if (Patron.STUDENT_TYPE.equals(roles)) {
 			Student patron = new Student();
-			//patron.getType();
+			// patron.getType();
 			patron.setUser_id(userID);
 			patron.setUser_name(userName);
 			patron.setUser_password(password);
@@ -729,7 +748,7 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			patron.setStudentName(userName);
 
 			userManager = new StudentManager();
-			//userManager.addPatron(patron);
+			// userManager.addPatron(patron);
 			userManager.add(patron);
 		}
 		jsp = "index.jsp";
@@ -772,38 +791,57 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 
 	}
 
-//	public void searchIsbn(HttpServletRequest request,
-//			HttpServletResponse response) throws Exception {
-//
-//		// request.setCharacterEncoding("UTF-8");
-//		// response.setCharacterEncoding("UTF-8");
-//		// response.setContentType("text/html; charset=UTF-8");
-//		String isbn = request.getParameter("book.isbn");
-//		Resource bookresource = null;
-//		try {
-//			bookresource = new Resource();
-//			JSONSimpleReadingFromFileExample json = new JSONSimpleReadingFromFileExample();
-//			bookresource = json.getInfo(isbn);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		// System.out.println(bookresource.getName());
-//		HttpSession session = request.getSession();
-//		if (bookresource != null) {
-//			jsp = "editBook.jsp";
-//			session.setAttribute("bookinfo", bookresource);
-//		}
-//		dispatch(jsp, request, response);
-//	}
-	public void diaryUser(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	// public void searchIsbn(HttpServletRequest request,
+	// HttpServletResponse response) throws Exception {
+	//
+	// // request.setCharacterEncoding("UTF-8");
+	// // response.setCharacterEncoding("UTF-8");
+	// // response.setContentType("text/html; charset=UTF-8");
+	// String isbn = request.getParameter("book.isbn");
+	// Resource bookresource = null;
+	// try {
+	// bookresource = new Resource();
+	// JSONSimpleReadingFromFileExample json = new
+	// JSONSimpleReadingFromFileExample();
+	// bookresource = json.getInfo(isbn);
+	// } catch (Exception e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	// // System.out.println(bookresource.getName());
+	// HttpSession session = request.getSession();
+	// if (bookresource != null) {
+	// jsp = "editBook.jsp";
+	// session.setAttribute("bookinfo", bookresource);
+	// }
+	// dispatch(jsp, request, response);
+	// }
+	public void diaryUser(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		String userID = request.getParameter("diaryUser.userID");
 		ResourceBorrowManagerImpl resbomanager = new ResourceBorrowManagerImpl();
 		List<ResourceBorrow> listborrow = resbomanager.showDiaryUser(userID);
 		HttpSession session = request.getSession();
-		session.setAttribute("listborrow",listborrow);
+		if (listborrow != null) {
+			session.setAttribute("listborrowuser", listborrow);
+			jsp = "diaryuser.jsp";
+		}
+		dispatch(jsp, request, response);
 	}
+
+	public void diaryBook(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String bookIsbn = request.getParameter("diaryBook.bookIsbn");
+		ResourceBorrowManagerImpl resbomanager = new ResourceBorrowManagerImpl();
+		List<ResourceBorrow> listborrow = resbomanager.showDiaryBook(bookIsbn);
+		HttpSession session = request.getSession();
+		if (listborrow != null) {
+			session.setAttribute("listborrowbook", listborrow);
+			jsp = "diarybook.jsp";
+		}
+		dispatch(jsp, request, response);
+	}
+
 	public void login(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -822,21 +860,21 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			session.setAttribute("patron.roles", roles);
 		} else {
 			jsp = "login.jsp";
-			request.setAttribute("messageErr","Tên đăng nhập hoặc mật khẩu không đúng");
+			request.setAttribute("messageErr",
+					"Tên đăng nhập hoặc mật khẩu không đúng");
 		}
 		dispatch(jsp, request, response);
 	}
 
 	public void logout(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		
+
 		HttpSession session = request.getSession();
 		jsp = "index.jsp";
-		//logedIn = null;
+		// logedIn = null;
 		// roles = "PATRON_LIB_MANAGER";
-		//session.removeAttribute("login.done");
-		//session.removeAttribute("patron.roles");
+		// session.removeAttribute("login.done");
+		// session.removeAttribute("patron.roles");
 		session.invalidate();
 		dispatch(jsp, request, response);
 	}
