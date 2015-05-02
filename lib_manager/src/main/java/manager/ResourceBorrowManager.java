@@ -17,4 +17,6 @@ public interface ResourceBorrowManager {
   public List<ResourceBorrow> getAllByPatron(String patronID);
 
   public List<ResourceBorrow> getAllByResource(String resourceID);
+  
+  public boolean addBorrowWithPayDate(ResourceBorrow resourceBorrow);
 }

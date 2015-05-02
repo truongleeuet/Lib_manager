@@ -64,8 +64,9 @@ public class ResourceBorrowManagerImpl implements ResourceBorrowManager {
 	public ResourceBorrow get(String Isbn, String patronID) {
 		// TODO Auto-generated method stub
 		ResourceBorrow resourceBorrow = null ;
-		String sql = "SELECT * FROM "+ TABLE_NAME + 
-		" WHERE " + BOOK_ISBN +"= ? AND " + PATRON_ID + "= ?";
+		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE "
+				+ BOOK_ISBN + "= ? AND " + PATRON_ID + "= ? AND " + PAY_DATE
+				+ " IS NULL;";
 		Connection connection = SqlExecute.getConnection();
 		if(connection == null){
 			System.out.println("Loi ket noi CSDL trong ham getResourceBorrow");
@@ -213,7 +214,41 @@ public class ResourceBorrowManagerImpl implements ResourceBorrowManager {
 		}
 		return list;
 	}
+	public boolean addBorrowWithPayDate(ResourceBorrow resourceBorrow) {
+		// String sql =
+		// "INSERT INTO "+TABLE_REPORT+" ("+BOOK_ISBN+","+PATRON_ID+","+RENDER_DATE+") VALUES(?,?,?);";
+		String sql = "UPDATE " + TABLE_NAME + " SET " + PAY_DATE
+				+ " = ? WHERE " + BOOK_ISBN + " = ? AND " + PATRON_ID
+				+ " = ? AND " + BORROW_DATE + " = ? AND " + PAY_DATE
+				+ " IS NULL;";
 
+		Connection connection = SqlExecute.getConnection();
+		if (connection == null) {
+			System.out.println("Loi ket noi CSDL trong ham getResourceBorrow");
+			return false;
+		}
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			if (statement != null) {
+
+				statement.setDate(1, new java.sql.Date(resourceBorrow.getPayDate().getTime()));
+				statement.setString(2, resourceBorrow.getResourceID());
+				statement.setString(3, resourceBorrow.getPatronID());
+				statement.setDate(4, new java.sql.Date(resourceBorrow
+						.getBorrowDate().getTime()));
+
+				statement.executeUpdate();
+
+				statement.close();
+				connection.close();
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 	@Override
 	public boolean remove(String Isbn, String patronID) {
 		

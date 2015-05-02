@@ -10,7 +10,7 @@
 	List<Resource> list = resourcemanager.gets();
 	String[] str = new String[list.size()];
 	for(int i=0;i<list.size();i++){
-		str[i]=list.get(i).getName();
+		str[i]=list.get(i).getIsbn();
 	}
 	
 	String query = (String)request.getParameter("q");

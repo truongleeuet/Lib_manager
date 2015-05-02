@@ -15,6 +15,8 @@
 						<script src="bootstrap/js/npm.js"></script>
 						<script src="jquery/jquery-2.1.3.js"></script>
 						<script src="jquery/jquery-2.1.3.min.js"></script>
+						<script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
+						<script src="jquery/jquery.autocomplete.js"></script>
 						<script type="text/javascript">
 							$(document).ready(function() {
 								$('ul.nav > li ').click(function(e) {
@@ -23,6 +25,18 @@
 									$('ul.nav > li ').removeClass('active');
 									$(this).addClass('active');
 								});
+							});
+						</script>
+						
+
+						<script>
+							jQuery(function() {
+								$(".inputtext").autocomplete("listbook.jsp");
+							});
+						</script>
+						<script>
+							jQuery(function() {
+								$(".userid").autocomplete("listpatron.jsp");
 							});
 						</script>
 						<title>check in - lib manager sys</title> <!--Đoạn mã đọc session để kiểm tra xem đã đăng nhập chưa,
@@ -60,6 +74,9 @@
 }
 -->
 </style>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/style1.css" />
+<link rel="stylesheet" type="text/css" href="css/stylesugess.css" />
 </head>
 
 <body>
@@ -101,31 +118,31 @@
 										</tr>
 										<tr>
 											<td><p>
-													<strong>Tên đăng nhập của người mượn : </strong>
+													<strong>Mã đăng nhập của người mượn : </strong>
 												</p></td>
-											<td><input name="checkIn.userName" type="text"
-												id="checkIn.userName" size="35"></td>
+											<td><input name="checkIn.userID" type="text"
+												id="checkIn.userName" size="35" class="userid"></td>
 										</tr>
 										<tr>
 											<td><p>
 													<strong>Mã tài nguyên mượn : </strong>
 												</p></td>
 											<td><input name="checkIn.Isbn" type="text"
-												id="checkIn.Isbn" size="35"></td>
+												id="checkIn.Isbn" size="35" class="inputtext"></td>
 										</tr>
-										<tr>
-											<td><p>
-													<strong>Mã tài nguyên mượn : </strong>
-												</p></td>
-											<td><select name="selectbook">
-													<option value="1">a</option>
-													<option value="1">s</option>
-													<option value="1">d</option>
-													<option value="1">f</option>
-													<option value="1">g</option>
+<!-- 										<tr> -->
+<!-- 											<td><p> -->
+<!-- 													<strong>Mã tài nguyên mượn : </strong> -->
+<!-- 												</p></td> -->
+<!-- 											<td><select name="selectbook"> -->
+<!-- 													<option value="1">a</option> -->
+<!-- 													<option value="1">s</option> -->
+<!-- 													<option value="1">d</option> -->
+<!-- 													<option value="1">f</option> -->
+<!-- 													<option value="1">g</option> -->
 
-											</select></td>
-										</tr>
+<!-- 											</select></td> -->
+<!-- 										</tr> -->
 										<tr>
 											<td>&nbsp;</td>
 											<td><div align="center">

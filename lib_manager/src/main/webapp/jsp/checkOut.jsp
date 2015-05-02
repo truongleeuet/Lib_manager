@@ -1,10 +1,8 @@
+<%@page import="manager.resource.ResourceManager"%>
 <%@ page contentType="text/html; charset=utf-8" language="java"
 	errorPage=""%>
-<%@ page import="support.WebcamQRCodeExample"%>
-<%@ page import="com.github.sarxos.webcam.*"%>
-<%@ page import="com.google.zxing.*"%>
-<%@ page import="com.google.zxing.client.j2se.BufferedImageLuminanceSource"%>
-<%@ page import="com.google.zxing.common.HybridBinarizer"%>
+<%@ page import="manager.resource.ResourceManager"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -38,6 +36,7 @@
 	if (messageErr == null) {
 		messageErr = "";
 	}
+	ResourceManager resourcemanager = new ResourceManager();
 // 	WebcamQRCodeExample webcam = new WebcamQRCodeExample();
 // 	String result = webcam.getResult();
 %>
@@ -91,10 +90,16 @@
 <%-- 												value="<%=result %>" --%>
 										</tr>
 										<tr>
-											<td width="45"><p>Tên của cuốn sách mượn :</p></td>
+											<td width="45"><p>Mã của cuốn sách mượn :</p></td>
 											<td><input name="checkOut.Isbn" type="text"
 												id="checkOut.Isbn" class="inputtext"></td>
 										</tr>
+<%-- 										<% Resource resource =  resourcemanager.get();%> --%>
+<!-- 										<tr> -->
+<!-- 											<td width="45"><p>Tên của cuốn sách mượn :</p></td> -->
+<!-- 											<td><input name="checkOut.bookName" type="text" -->
+<!-- 												id="checkOut.bookName" ></td> -->
+<!-- 										</tr> -->
 										<tr>
 											<td>&nbsp;</td>
 											<td><div align="center">

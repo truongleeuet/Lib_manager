@@ -37,17 +37,14 @@
 
  	//Patron patron = (Patron)request.getAttribute("patron_borrow");
  	//Resource resource = (Resource)request.getAttribute("resource_borrow");
- 	ResourceBorrow resourceBorrow = (ResourceBorrow) request
- 			.getAttribute("resourceBorrow");
+ 	ResourceBorrow resourceBorrow = (ResourceBorrow) request.getAttribute("resourceBorrow");
 
  	if (resourceBorrow == null || logedIn == null
  			|| !"PATRON_LIB_MANAGER".equals(roles)) {
  		response.sendRedirect("login.jsp");
- 		out.println("That la cha hieu dek gi ca");
+ 		//out.println("That la cha hieu dek gi ca");
  	}
 
- 	//Doan code nay minh cung van chua hieu gi ca
- 	//Tai sao no fai co cho nay moi chay dung
  	if (resourceBorrow == null) {
  		resourceBorrow = new ResourceBorrow();
  	}
@@ -73,14 +70,13 @@
  		ngayquahan = 0;
  		money = 0;
  	}
- 	String borrowDateString = dateFormat.format(resourceBorrow
- 			.getBorrowDate());
- 	String renderDateString = dateFormat.format(resourceBorrow
- 			.getRenderDate());
+ 	String borrowDateString = dateFormat.format(resourceBorrow.getBorrowDate());
+ 	String renderDateString = dateFormat.format(resourceBorrow.getRenderDate());
+ 	
  %>
 
 
-						<link rel="stylesheet" type="text/css" href="style.css">
+						<link rel="stylesheet" type="text/css" href="css/style.css">
 							<style type="text/css">
 <!--
 .style1 {
@@ -114,7 +110,7 @@
 					<div align="center">
 						<p align="center">..:: Home &gt; Đặt sách::..</p>
 					</div>
-					<table border="0" cellpadding="0" cellspacing="0" width="100%">
+					<table>
 						<tr valign="top">
 							<td width="45%">
 								<p>&nbsp;</p>
@@ -155,7 +151,7 @@
 									</tr>
 									<tr valign="top">
 										<td><p>
-												<strong> Số ngáy quá hạn : </strong>
+												<strong> Số ngày quá hạn : </strong>
 											</p></td>
 										<td><p>
 												<%=ngayquahan%>
@@ -184,16 +180,17 @@
 										<td><form id="formCheckIn" name="formCheckIn"
 												method="get" action="controler">
 
-												<input type="hidden" name="checkIn.userName"
-													id="checkIn.userName"
-													value="<%=resourceBorrow.getPatronID()%>" /> <input
-													type="hidden" name="checkIn.Isbn" id="checkIn.Isbn"
-													value="<%=resourceBorrow.getResourceID()%>" /> <input
-													type="hidden" name="action" value="CHECK_IN" /> <input
-													type="hidden" name="checkIn_type" value="DELETE" /> <input
-													type="submit" name="checkIn.submit" id="checkIn.submit"
-													value="Trả sách" /> <a class="right" href="checkIn.jsp">Back....</a>
-											</form></td>
+												 <input type="hidden" name="checkIn.userID"
+															id="checkIn.userID"
+															value="<%=resourceBorrow.getPatronID()%>" /> <input
+															type="hidden" name="checkIn.Isbn"
+															id="checkIn.Isbn"
+															value="<%=resourceBorrow.getResourceID()%>" /> <input
+															type="hidden" name="action" value="CHECK_IN" /> <input
+															type="hidden" name="checkIn_type" value="DELETE" /> <input
+															type="submit" name="checkIn.submit" id="checkIn.submit"
+															value="Trả sách" /> <a class="right" href="checkIn.jsp">Back....</a>
+													</form></td>
 									</tr>
 								</table> <!-- 										<p class="right"> --> <!-- 											<a href="checkIn.jsp">Back ....</a> -->
 								<!-- 										</p> -->

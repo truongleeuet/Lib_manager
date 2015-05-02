@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -168,26 +169,30 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 
 	public void checkIn(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String userName = request.getParameter("checkIn.userName");
+		String userID = request.getParameter("checkIn.userID");
 		String Isbn = request.getParameter("checkIn.Isbn");
 		String checkInType = request.getParameter("checkIn_type");
 
 		ResourceManager resourceManager = new ResourceManager();
 
 		ResourceBorrowManager resourceBorrowManager = new ResourceBorrowManagerImpl();
-		ResourceBorrow resourceBorrow = resourceBorrowManager.get(Isbn,
-				userName);
+		ResourceBorrow resourceBorrow = resourceBorrowManager.get(Isbn,userID);
 		if (resourceBorrow == null) {
 			jsp = "checkIn.jsp";
-			String messageErr = "KhÃ´ng cÃ³ thÃ´ng tin báº¡n Ä‘á»�c hoáº·c tÃ i nguyÃªn vá»›i thÃ´ng tin nhÆ° trÃªn";
+			String messageErr = "Không có thông tin bạn đọc hoặc tài nguyên với thông tin như trên";
 			request.setAttribute("messageErr", messageErr);
 			dispatch(jsp, request, response);
 		} else if ("LOAD".equals(checkInType)) {
 			request.setAttribute("resourceBorrow", resourceBorrow);
 			jsp = "loadCheckIn.jsp";
 		} else if ("DELETE".equals(checkInType)) {
-			resourceBorrowManager.remove(resourceBorrow.getResourceID(),
-					resourceBorrow.getPatronID());
+			//resourceBorrowManager.remove(resourceBorrow.getResourceID(),resourceBorrow.getPatronID());
+			//DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+			//ResourceBorrow resBorrow = resourceBorrowManager.get(userID, Isbn);
+			Calendar calendar = Calendar.getInstance();
+			java.util.Date payDate = calendar.getTime();
+			resourceBorrow.setPayDate(payDate);
+			resourceBorrowManager.addBorrowWithPayDate(resourceBorrow);
 			resourceManager.creaseAmount(Isbn);
 			jsp = "index.jsp";
 		}
@@ -206,29 +211,34 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		ResourceBorrow resourceBorrow = resourceBorrowManager.get(Isbn,userID);
 		// ResourceRequest resourceRequest =
 		// resourceRequestManager.get(Isbn, userName);
-
-		if (resourceBorrow != null) {
-			String messageErr = "Bạn đã mượn cuốn sách này rồi";
-			jsp = "request.jsp";
-			request.setAttribute("messageErr", messageErr);
-			dispatch(jsp, request, response);
+		//System.out.println(resourceBorrow.getPatronID());
+		try {
+			if (resourceBorrow != null) {
+				String messageErr = "Bạn đang mượn cuốn sách này";
+				jsp = "checkOut.jsp";
+				request.setAttribute("messageErr", messageErr);
+				dispatch(jsp, request, response);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		UserManager userManager = new StudentManager();
 		ResourceManager resourceManager = new ResourceManager();
 		resourceBorrowManager = new ResourceBorrowManagerImpl();
-
+		
 		String patronType = userManager.checkUserName(userID);
 		Resource resource = resourceManager.get(Isbn);
 
-		String testIsbn = resource.getIsbn();
-		if (testIsbn == null) {
-			testIsbn = "";
-		}
+//		String testIsbn = resource.getIsbn();
+//		if (testIsbn == null) {
+//			testIsbn = "";
+//		}
+//
+//		Boolean test = testIsbn.equals(Isbn);
 
-		Boolean test = testIsbn.equals(Isbn);
-
-		if (patronType == null || (!test)) {
+		if ((patronType == null) || (resource == null)) {
 			String messageErr = "Không có bạn đọc hoặc tài nguyên với thông tin như trên";
 			request.setAttribute("messageErr", messageErr);
 			jsp = "checkOut.jsp";
@@ -277,8 +287,9 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			resourceBorrow.setPatronID(userID);
 
 			// Luu vao CSDL
-			resourceManager.decreaseAmount(Isbn);
+			
 			resourceBorrowManager.add(resourceBorrow);
+			resourceManager.decreaseAmount(Isbn);
 			jsp = "index.jsp";
 			dispatch(jsp, request, response);
 		} else {
@@ -412,7 +423,7 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 
 	public void deleteResource(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String Isbn = request.getParameter("delete.Isbn");
+		String Isbn = request.getParameter("delete.resourceID");
 		ResourceManager resourceManager = new ResourceManager();
 
 		resourceManager = new ResourceManager();
