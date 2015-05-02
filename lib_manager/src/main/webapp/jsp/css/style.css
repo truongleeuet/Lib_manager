@@ -1,27 +1,53 @@
-body{
+body {
 	background-image: url(img/library2.JPG);
 }
-.wrapmiddel{
-	width:966px;
-	height:1100px;
+
+.wrapmiddel {
+	width: 966px;
+	height: 1100px;
 	margin-left: 200px;
 }
-div.sidebar{
-	float:left;
-	width:256px;
-	
+
+div.sidebar {
+	float: left;
+	width: 256px;
 }
-div.body{
-	float:right;
-	width:710px;
+
+div.body {
+	float: right;
+	width: 710px;
 }
-iframe{
-	width:100%;
+
+iframe {
+	width: 100%;
 	border: none;
 }
-.style1{
+
+.style1 {
 	color: red;
 }
-.style2{
+
+.style2 {
 	color: red;
+}
+
+#diaryuser {
+	border: 1px solid black;
+	border-collapse: collapse;
+	/*     width: 100%; */
+	/*     margin-left: 20px; */
+	width: 710px;
+}
+
+table#diaryuser th {
+	border: 1px solid black;
+	border-collapse: collapse;
+	padding: 5px;
+	text-align: left;
+}
+table#diaryuser td {
+	border: 1px solid black;
+	border-collapse: collapse;
+	padding: 5px;
+	text-align: left;
 }

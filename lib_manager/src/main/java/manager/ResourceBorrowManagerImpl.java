@@ -249,6 +249,33 @@ public class ResourceBorrowManagerImpl implements ResourceBorrowManager {
 		}
 		return true;
 	}
+	
+	public List<ResourceBorrow> showDiaryUser(String userID){
+		ArrayList<ResourceBorrow> list = null;
+		String sql = "SELECT * FROM "+TABLE_NAME+" WHERE "+PATRON_ID+" = '"+userID+"';";
+		ResultSet resultSet = SqlExecute.executeCommand(sql);
+		if (resultSet == null) {
+			System.out.println("Truy van bi loi tai ham showreportUser!");
+		}
+		list = new ArrayList<ResourceBorrow>();
+		try {
+			while (resultSet.next()) {
+				ResourceBorrow resourceBorrow = new ResourceBorrow();
+				resourceBorrow.setPatronID(resultSet.getString(PATRON_ID));
+				resourceBorrow.setResourceID(resultSet.getString(BOOK_ISBN));
+				resourceBorrow.setBorrowDate(resultSet.getDate(BORROW_DATE));
+				resourceBorrow.setRenderDate(resultSet.getDate(RENDER_DATE));
+				resourceBorrow.setPayDate(resultSet.getDate(PAY_DATE));
+				
+				list.add(resourceBorrow);
+			}
+			resultSet.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
 	@Override
 	public boolean remove(String Isbn, String patronID) {
 		

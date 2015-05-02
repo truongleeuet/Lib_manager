@@ -157,13 +157,8 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			borrowed(request, response);
 		} else if ("REQUESTED".equals(action)) {
 			requested(request, response);
-		} else if ("SEARCH_ISBN".equals(action)) {
-			try {
-				searchIsbn(request, response);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		} else if ("DIARY_USER".equals(action)){
+			diaryUser(request, response);
 		}
 	}
 
@@ -777,31 +772,38 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 
 	}
 
-	public void searchIsbn(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-
-		// request.setCharacterEncoding("UTF-8");
-		// response.setCharacterEncoding("UTF-8");
-		// response.setContentType("text/html; charset=UTF-8");
-		String isbn = request.getParameter("book.isbn");
-		Resource bookresource = null;
-		try {
-			bookresource = new Resource();
-			JSONSimpleReadingFromFileExample json = new JSONSimpleReadingFromFileExample();
-			bookresource = json.getInfo(isbn);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// System.out.println(bookresource.getName());
+//	public void searchIsbn(HttpServletRequest request,
+//			HttpServletResponse response) throws Exception {
+//
+//		// request.setCharacterEncoding("UTF-8");
+//		// response.setCharacterEncoding("UTF-8");
+//		// response.setContentType("text/html; charset=UTF-8");
+//		String isbn = request.getParameter("book.isbn");
+//		Resource bookresource = null;
+//		try {
+//			bookresource = new Resource();
+//			JSONSimpleReadingFromFileExample json = new JSONSimpleReadingFromFileExample();
+//			bookresource = json.getInfo(isbn);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		// System.out.println(bookresource.getName());
+//		HttpSession session = request.getSession();
+//		if (bookresource != null) {
+//			jsp = "editBook.jsp";
+//			session.setAttribute("bookinfo", bookresource);
+//		}
+//		dispatch(jsp, request, response);
+//	}
+	public void diaryUser(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String userID = request.getParameter("diaryUser.userID");
+		ResourceBorrowManagerImpl resbomanager = new ResourceBorrowManagerImpl();
+		List<ResourceBorrow> listborrow = resbomanager.showDiaryUser(userID);
 		HttpSession session = request.getSession();
-		if (bookresource != null) {
-			jsp = "editBook.jsp";
-			session.setAttribute("bookinfo", bookresource);
-		}
-		dispatch(jsp, request, response);
+		session.setAttribute("listborrow",listborrow);
 	}
-
 	public void login(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
