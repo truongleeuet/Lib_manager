@@ -81,8 +81,7 @@
  	}
  	ResourceManager resourcemanager = new ResourceManager();
  	List<Resource> list = resourcemanager.gets();
- 	List<Resource> listComputer = (List<Resource>) session
- 			.getAttribute("ListCom");
+ 	//List<Resource> listComputer = (List<Resource>) session.getAttribute("ListCom");
 
  	//  	int totalRecord = list.size();
  	//  	int totalPages = totalRecord / 9;
@@ -99,44 +98,44 @@
  			currentPage = 1;
  		}
  	}
- 	String phantrang = getPage(currentPage, 9, 3, list);
+ 	String phantrang = getPage("Book.jsp",currentPage, 9, 3, list);
  %>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 			</style>
 </head>
 
-<body>
+<!-- <body> -->
 
-	<table>
-		<tr valign="top">
-			<td>
-				<div>
-					<!-- Header -->
-					<jsp:include page="header.jsp" />
-					<!--  End Header -->
-				</div>
-				<div>
-					<jsp:include page="carousel.jsp" flush="true" />
-				</div>
-				<div class="wrapmiddel">
-					<div class="sidebar">
-						<jsp:include page="sidebar.jsp" flush="true" />
-					</div>
-					<div align="center">
-						<p align="center">..:: Home &gt;Xem Sách trong thư viện::..</p>
-					</div>
+<!-- 	<table> -->
+<!-- 		<tr valign="top"> -->
+<!-- 			<td> -->
+<!-- 				<div> -->
+<!-- 					Header -->
+<%-- 					<jsp:include page="header.jsp" /> --%>
+<!-- 					 End Header -->
+<!-- 				</div> -->
+<!-- 				<div> -->
+<%-- 					<jsp:include page="carousel.jsp" flush="true" /> --%>
+<!-- 				</div> -->
+<!-- 				<div class="wrapmiddel"> -->
+<!-- 					<div class="sidebar"> -->
+<%-- 						<jsp:include page="sidebar.jsp" flush="true" /> --%>
+<!-- 					</div> -->
+<!-- 					<div align="center"> -->
+<!-- 						<p align="center">..:: Home &gt;Xem Sách trong thư viện::..</p> -->
+<!-- 					</div> -->
 					<div class="body" style="background:#000">
 						<div>
 							<%=phantrang%>
 						</div>
 					</div>
-				</div>
-				<div>
-					<jsp:include page="footer.jsp" flush="true" />
-				</div>
-			</td>
-		</tr>
-	</table>
+<!-- 				</div> -->
+<!-- 				<div> -->
+<%-- 					<jsp:include page="footer.jsp" flush="true" /> --%>
+<!-- 				</div> -->
+<!-- 			</td> -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
 
-</body>
-</html>
+<!-- </body> -->
+<!-- </html> -->

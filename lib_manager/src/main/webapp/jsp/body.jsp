@@ -10,8 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <%
-	List<Resource> list = (List<Resource>) session
-			.getAttribute("search_result");
+	List<Resource> list = (List<Resource>) session.getAttribute("search_result");
 	if (list == null) {
 		list = new ArrayList<Resource>();
 	}

@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-	<%!public String getPage(int currentPage, int records, int pages,List<Resource> list) {
+	<%!public String getPage(String url,int currentPage, int records, int pages,List<Resource> list) {
 		//ResourceManager resourcemanager = new ResourceManager();
 		//list = resourcemanager.gets();
 		String tmp = "";
@@ -49,13 +49,13 @@
 		}
 		tmp+="<p align=\"right\" class=\"right\" style=\"clear: both\">";
 		if (Segment > 1) {
-			tmp+=" <a href=\"Book.jsp?page=" + (Segment - 1) * 3 + " \" >Previous&nbsp; </a>";
+			tmp+=" <a href=\" " + url + "?page=" + (Segment - 1) * 3 + " \" >Previous&nbsp; </a>";
 		}
 		for (int No = startNo; No <= endNo; No++) {
-			tmp+="<a href=\"Book.jsp?page=" + No +"\">" + No + "&nbsp;</a>";
+			tmp+="<a href=\" " +url + "?page=" + No + " \"> " + No + "&nbsp;</a>";
 		}
 		if (totalPages > 3 * Segment) {
-			tmp+="<a href=\"Book.jsp?page=" + ((Segment * 3) + 1) +"\"> Next&nbsp; </a>";
+			tmp+="<a href=\" " +url+ "?page=" + ((Segment * 3) + 1) +"\"> Next&nbsp; </a>";
 		}
 		tmp+="</p>";
 		return tmp;

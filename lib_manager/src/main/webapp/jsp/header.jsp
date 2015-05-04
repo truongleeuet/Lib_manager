@@ -1,5 +1,5 @@
 
-<script src="script.js"></script>
+<!-- <script src="script.js"></script> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -14,6 +14,14 @@
 		});
 	});
 </script>
+<script type="text/javascript">
+
+$(document).ready( function() {
+	$('.dropdown-toggle').dropdown();
+	});
+
+</script>
+
 <title>Insert title here</title>
 <%
 	String logedIn = (String) session.getAttribute("login.done");
@@ -51,13 +59,13 @@
 						class="glyphicon glyphicon-home"></span> HOME</a></li>
 
 				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="Book.jsp" role="button"
-					aria-expanded="false"> <span class="glyphicon glyphicon-book"></span>BOOK<span
+					data-toggle="dropdown" href="#" role="button"> 
+					<span class="glyphicon glyphicon-book"></span>BOOK<span
 						class="caret"></span>
 				</a>
-					<ul class="dropdown-menu" >
-						<li><a href="#">Computer</a></li>
-						<li><a href="#">All</a></li>
+					<ul class="dropdown-menu">
+						<li><a href="computer.jsp" target="iframe_book">Computer</a></li>
+						<li><a href="Book.jsp" target="iframe_book">All</a></li>
 						<li><a href="#">Something else here</a></li>
 						<li><a href="#">Separated link</a></li>
 					</ul>

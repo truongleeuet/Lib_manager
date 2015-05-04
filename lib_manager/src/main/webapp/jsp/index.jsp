@@ -10,6 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <script src="script.js"></script>
+ <script type="text/javascript" src="http://twitter.github.io/bootstrap/assets/js/bootstrap-dropdown.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet"
@@ -32,27 +33,7 @@
 											href="bootstrap/css/bootstrap-theme.min.css">
 
 
-											<script>
-		$( document ).ready(function() {
-			$('#cssmenu li.active').children('ul').show();
-			  $('#cssmenu li.has-sub>a').on('click', function(){
-			    $(this).removeAttr('href');
-			    var element = $(this).parent('li');
-			    if (element.hasClass('active')) {
-			      element.removeClass('active');
-			      element.find('li').removeClass('active');
-			      element.find('ul').slideUp();
-			    }
-			    else {
-			      element.addClass('active');
-			      element.children('ul').slideDown();
-			      element.siblings('li').children('ul').slideUp();
-			      element.siblings('li').removeClass('active');
-			      element.siblings('li').find('li').removeClass('active');
-			      element.siblings('li').find('ul').slideUp();
-			    }
-			  });
-						</script>
+											
 											<script language="JavaScript">
             function calcHeight()
             {    
@@ -60,6 +41,7 @@
                 document.getElementById('Shacker').height=dodai_trang;
             }
             </script>
+											
 
 											<title>Home - Lib manager Sys</title> <%
  	String logedIn = (String) session.getAttribute("login.done");
@@ -86,7 +68,7 @@
 						<jsp:include page="sidebar.jsp" flush="true" />
 					</div>
 					<div class="body">
-						<iframe id="Shacker" src="body.jsp" name="iframe_a"
+						<iframe id="Shacker" src="body.jsp" name="iframe_book"
 							onLoad="calcHeight();" scrolling="no"></iframe>
 					</div>
 				</div>
