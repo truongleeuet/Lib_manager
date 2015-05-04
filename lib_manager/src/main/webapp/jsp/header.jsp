@@ -1,11 +1,9 @@
 
 <script src="script.js"></script>
-<!-- <script -->
-<!-- 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
-<!-- <script -->
-<!-- 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
-<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('ul.nav > li ').click(function(e) {
@@ -52,17 +50,18 @@
 				<li class="active"><a href="index.jsp"><span
 						class="glyphicon glyphicon-home"></span> HOME</a></li>
 
-				<li class="dropdown"><a class="dropdown-toggle disabled"
+				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="Book.jsp" role="button"
 					aria-expanded="false"> <span class="glyphicon glyphicon-book"></span>BOOK<span
 						class="caret"></span>
 				</a>
-					<ul class="dropdown-menu" role="menu">
+					<ul class="dropdown-menu" >
 						<li><a href="#">Computer</a></li>
 						<li><a href="#">All</a></li>
 						<li><a href="#">Something else here</a></li>
 						<li><a href="#">Separated link</a></li>
-					</ul></li>
+					</ul>
+				</li>
 				<li><a href="#"><span><img src="img/requesticon.jpg" ></span> REQUEST</a></li>
 				<li><a href="#"><span><img src="img/contact_us_icon.png"></span> CONTACT</a></li>
 				<li><a href="#"><span><img src="img/support.png"></span> SUPPORT</a></li>

@@ -10,10 +10,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <script src="script.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+			src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<script
 			src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<link ref="stylesheet" href="css/bootstrap.css">
@@ -28,23 +30,8 @@
 										href="bootstrap/css/bootstrap-theme.css.map">
 										<link rel="stylesheet"
 											href="bootstrap/css/bootstrap-theme.min.css">
-											<script>
-	$(document).ready({
-		$('.dropdown-menu li a').click(function()
-				alert("You entered p1!");	
-		);
-	});
-</script>
-											<script type="text/javascript">
-							$(document).ready(function() {
-								$('ul.nav > li ').click(function(e) {
-									 //alert('clicked');
-									//e.preventDefault();
-									$('ul.nav > li ').removeClass('active');
-									$(this).addClass('active');
-								});
-							});
-						</script>
+
+
 											<script>
 		$( document ).ready(function() {
 			$('#cssmenu li.active').children('ul').show();
@@ -73,6 +60,7 @@
                 document.getElementById('Shacker').height=dodai_trang;
             }
             </script>
+
 											<title>Home - Lib manager Sys</title> <%
  	String logedIn = (String) session.getAttribute("login.done");
  	String roles = (String) session.getAttribute("patron.roles");
@@ -80,8 +68,8 @@
 											<link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 
-<body >
-<!-- style="background-image:url(img/library2.JPG);background-size: contain;" -->
+<body>
+	<!-- style="background-image:url(img/library2.JPG);background-size: contain;" -->
 	<table>
 		<tr valign="top">
 			<td>
