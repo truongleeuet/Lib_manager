@@ -65,9 +65,10 @@ $(document).ready( function() {
 				</a>
 					<ul class="dropdown-menu">
 						<li><a href="computer.jsp" target="iframe_book">Computer</a></li>
-						<li><a href="Book.jsp" target="iframe_book">All</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li><a href="#">Separated link</a></li>
+						<li><a href="law.jsp" target="iframe_book">Law</a></li>
+						<li><a href="poetry.jsp" target="iframe_book">Poetry</a></li>
+						<li><a href="humor.jsp" target="iframe_book">Humor</a></li>
+						<li><a href="Book.jsp" target="iframe_book">All</a></li>	
 					</ul>
 				</li>
 				<li><a href="#"><span><img src="img/requesticon.jpg" ></span> REQUEST</a></li>

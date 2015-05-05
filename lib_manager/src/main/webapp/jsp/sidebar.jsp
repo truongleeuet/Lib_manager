@@ -1,22 +1,24 @@
 <script>
 	$(document).ready(function() {
 		$('#cssmenu li.active').children('ul').show();
-		$('#cssmenu li.has-sub>a').on('click', function() {
-			$(this).removeAttr('href');
-			var element = $(this).parent('li');
-			if (element.hasClass('active')) {
-				element.removeClass('active');
-				element.find('li').removeClass('active');
-				element.find('ul').slideUp();
-			} else {
-				element.addClass('active');
-				element.children('ul').slideDown();
-				element.siblings('li').children('ul').slideUp();
-				element.siblings('li').removeClass('active');
-				element.siblings('li').find('li').removeClass('active');
-				element.siblings('li').find('ul').slideUp();
-			}
-		});
+		  $('#cssmenu li.has-sub>a').on('click', function(){
+		    $(this).removeAttr('href');
+		    var element = $(this).parent('li');
+		    if (element.hasClass('active')) {
+		      element.removeClass('active');
+		      element.find('li').removeClass('active');
+		      element.find('ul').slideUp();
+		    }
+		    else {
+		      element.addClass('active');
+		      element.children('ul').slideDown();
+		      element.siblings('li').children('ul').slideUp();
+		      element.siblings('li').removeClass('active');
+		      element.siblings('li').find('li').removeClass('active');
+		      element.siblings('li').find('ul').slideUp();
+		    }
+		  });
+		  
 	});
 </script>
 
@@ -67,7 +69,7 @@
 						<li><a href='diaryuser.jsp'><span>Người dùng</span></a></li>
 						<li class='last'><a href='diarybook.jsp'><span>Book</span></a></li>
 					</ul></li>
-				<li class='last'><a href='#'><span>Manager</span></a>
+				<li class='has-sub'><a href='#'><span>Manager</span></a>
 					<ul>
 						<li><a href='editBook.jsp'><span>Thêm Sách</span></a></li>
 						<li><a href='deleteResource.jsp'><span>Xóa Sách</span></a></li>
@@ -83,7 +85,7 @@
 				<%
 					if ("PATRON_STUDENT".equals(roles)) {
 				%>
-				<li class='last'><a href='#'><span>Tài Nguyên</span></a>
+				<li class='has-sub'><a href='#'><span>Tài Nguyên</span></a>
 					<ul>
 						<li><a href='#'><span>Tài Nguyên Đã Mượn</span></a></li>
 						<li class='last'><a href='#'><span>Tài Nguyên Yêu

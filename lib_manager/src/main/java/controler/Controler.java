@@ -160,8 +160,16 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			requested(request, response);
 		} else if ("DIARY_USER".equals(action)) {
 			diaryUser(request, response);
-		} else if ("DIARY_BOOK".equals(action))
+		} else if ("DIARY_BOOK".equals(action)) {
 			diaryBook(request, response);
+		} else if ("SEARCH_ISBN".equals(action)) {
+			try {
+				searchIsbn(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void checkIn(HttpServletRequest request, HttpServletResponse response)
@@ -353,10 +361,10 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			java.util.Date datetest = dateBorrow.getTime();
 			boolean test = dateBorrow.before(currentcalendar);
 			System.out.println("jfskdjflas" + test);
-//			 System.out.println(borrowDate);
-//			 System.out.println(datetest);
-//			 System.out.println(dateBorrow);
-//			 System.out.println(currentcalendar);
+			// System.out.println(borrowDate);
+			// System.out.println(datetest);
+			// System.out.println(dateBorrow);
+			// System.out.println(currentcalendar);
 			if (test) {
 				String messageErr = "Ngày mượn không đúng";
 				jsp = "request.jsp";
@@ -367,9 +375,10 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 				resourceBorrowManager = new ResourceBorrowManagerImpl();
 				resource = resourceManager.get(Isbn);
 				int resourceAmount = resource.getAmount();
-//				int resourceBorrowed = resourceBorrowManager.getAllByResource(Isbn).size();
+				// int resourceBorrowed =
+				// resourceBorrowManager.getAllByResource(Isbn).size();
 
-				if (resourceAmount >0) {
+				if (resourceAmount > 0) {
 					String messageErr = "Tài nguyên này còn trong thư viện bạn có thể mượn";
 					jsp = "request.jsp";
 					request.setAttribute("messageErr", messageErr);
@@ -382,17 +391,18 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 					resourceManager.decreaseAmount(Isbn);
 					dispatch(jsp, request, response);
 				} else {
-//					resourceRequestManager = new ResourceRequestManagetImpl();
-//					resourceRequest = new ResourceRequest();
-//					resourceRequest.setResourceID(Isbn);
-//					resourceRequest.setPatronID(userID);
-//					resourceRequest.setBorrowDate(borrowDate);
-//					resourceRequestManager.add(resourceRequest);
-//					resourceManager.decreaseAmount(Isbn);
+					// resourceRequestManager = new
+					// ResourceRequestManagetImpl();
+					// resourceRequest = new ResourceRequest();
+					// resourceRequest.setResourceID(Isbn);
+					// resourceRequest.setPatronID(userID);
+					// resourceRequest.setBorrowDate(borrowDate);
+					// resourceRequestManager.add(resourceRequest);
+					// resourceManager.decreaseAmount(Isbn);
 					String messageErr = "Tài nguyên này đã hết";
 					jsp = "request.jsp";
 					request.setAttribute("messageErr", messageErr);
-//					jsp = "index.jsp";
+					// jsp = "index.jsp";
 					dispatch(jsp, request, response);
 				}
 			}
@@ -791,31 +801,31 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 
 	}
 
-	// public void searchIsbn(HttpServletRequest request,
-	// HttpServletResponse response) throws Exception {
-	//
-	// // request.setCharacterEncoding("UTF-8");
-	// // response.setCharacterEncoding("UTF-8");
-	// // response.setContentType("text/html; charset=UTF-8");
-	// String isbn = request.getParameter("book.isbn");
-	// Resource bookresource = null;
-	// try {
-	// bookresource = new Resource();
-	// JSONSimpleReadingFromFileExample json = new
-	// JSONSimpleReadingFromFileExample();
-	// bookresource = json.getInfo(isbn);
-	// } catch (Exception e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// // System.out.println(bookresource.getName());
-	// HttpSession session = request.getSession();
-	// if (bookresource != null) {
-	// jsp = "editBook.jsp";
-	// session.setAttribute("bookinfo", bookresource);
-	// }
-	// dispatch(jsp, request, response);
-	// }
+	public void searchIsbn(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		// request.setCharacterEncoding("UTF-8");
+		// response.setCharacterEncoding("UTF-8");
+		// response.setContentType("text/html; charset=UTF-8");
+		String isbn = request.getParameter("book.isbn");
+		Resource bookresource = null;
+		try {
+			bookresource = new Resource();
+			JSONSimpleReadingFromFileExample json = new JSONSimpleReadingFromFileExample();
+			bookresource = json.getInfo(isbn);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// System.out.println(bookresource.getName());
+		HttpSession session = request.getSession();
+		if (bookresource != null) {
+			jsp = "editBook.jsp";
+			session.setAttribute("bookinfo", bookresource);
+		}
+		dispatch(jsp, request, response);
+	}
+
 	public void diaryUser(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String userID = request.getParameter("diaryUser.userID");

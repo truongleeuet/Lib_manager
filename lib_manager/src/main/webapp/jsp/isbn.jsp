@@ -39,7 +39,7 @@
 //  	if (logedIn == null || !"PATRON_LIB_MANAGER".equals(roles)) {
 //  		response.sendRedirect("login.jsp");
 //  	}
- 	WebcamQRCodeExample webcam = new WebcamQRCodeExample();
+ 	//WebcamQRCodeExample webcam = new WebcamQRCodeExample();
  %>
 
 
@@ -234,7 +234,7 @@
 															<strong>Mã ISBN : </strong>
 														</p></td>
 													<td width="45%"><input name="book.isbn" type="text"
-														id="book.isbn" size="35" value="<%=webcam.getResult() %>" /></td>
+														id="book.isbn" size="35"  /></td>
 												</tr>
 
 												<tr>
