@@ -64,7 +64,7 @@
  		ngayquahan = TimeUnit.DAYS.convert(timengayquahan,
  				TimeUnit.MILLISECONDS);
 
- 		money = ngayquahan * 300;
+ 		money = ngayquahan * 500;
 
  	} else {
  		ngayquahan = 0;

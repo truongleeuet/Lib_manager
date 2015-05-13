@@ -12,17 +12,17 @@
 		str[i]=list.get(i).getIsbn();
 	}
 	
-	String query = (String)request.getParameter("q");
+// 	String query = (String)request.getParameter("q");
 	
-	int cnt=1;
-	for(int j=0;j<str.length;j++)
-	{
-		if(str[j].toUpperCase().startsWith(query.toUpperCase()))
-		{
-			out.print(str[j]+"\n");
-			if(cnt>=50)
-				break;
-			cnt++;
-		}
-	}
+// 	int cnt=1;
+// 	for(int j=0;j<str.length;j++)
+// 	{
+// 		if(str[j].toUpperCase().startsWith(query.toUpperCase()))
+// 		{
+// 			out.print(str[j]+"\n");
+// 			if(cnt>=50)
+// 				break;
+// 			cnt++;
+// 		}
+// 	}
 %>

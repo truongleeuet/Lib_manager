@@ -88,7 +88,7 @@
 				%>
 				<li class='has-sub'><a href='#'><span>Tài Nguyên</span></a>
 					<ul>
-						<li><a href=''><span>Tài Nguyên Đã Mượn</span></a></li>
+						<li><a href='borrowed.jsp'><span>Tài Nguyên Đã Mượn</span></a></li>
 						<li class='last'><a href='requested.jsp'><span>Tài Nguyên Yêu
 									Cầu</span></a></li>
 					</ul></li>

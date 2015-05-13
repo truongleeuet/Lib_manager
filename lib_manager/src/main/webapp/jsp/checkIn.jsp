@@ -56,24 +56,7 @@
 							if (messageErr == null) {
 								messageErr = "";
 							}
-						%>
-
-
-
-						<link rel="stylesheet" type="text/css" href="css/style.css">
-							<style type="text/css">
-<!--
-.style1 {
-	font-size: 14px;
-	font-weight: bold;
-	color: #999999;
-}
-
-.style2 {
-	color: #FF0000
-}
--->
-</style>
+						%>						
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/style1.css" />
 <link rel="stylesheet" type="text/css" href="css/stylesugess.css" />
@@ -128,21 +111,8 @@
 													<strong>Mã tài nguyên mượn : </strong>
 												</p></td>
 											<td><input name="checkIn.Isbn" type="text"
-												id="checkIn.Isbn" size="35" class="inputtext"></td>
+												id="checkIn.Isbn" size="45" class="inputtext"></td>
 										</tr>
-<!-- 										<tr> -->
-<!-- 											<td><p> -->
-<!-- 													<strong>Mã tài nguyên mượn : </strong> -->
-<!-- 												</p></td> -->
-<!-- 											<td><select name="selectbook"> -->
-<!-- 													<option value="1">a</option> -->
-<!-- 													<option value="1">s</option> -->
-<!-- 													<option value="1">d</option> -->
-<!-- 													<option value="1">f</option> -->
-<!-- 													<option value="1">g</option> -->
-
-<!-- 											</select></td> -->
-<!-- 										</tr> -->
 										<tr>
 											<td>&nbsp;</td>
 											<td><div align="center">

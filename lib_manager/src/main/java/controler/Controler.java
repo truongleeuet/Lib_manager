@@ -173,8 +173,6 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			checkOut(request, response);
 		} else if ("CHECK_IN".equals(action)) {
 			checkIn(request, response);
-		} else if ("BORROWED".equals(action)) {
-			borrowed(request, response);
 		} else if ("REQUESTED".equals(action)) {
 			requested(request, response);
 		} else if ("DIARY_USER".equals(action)) {
@@ -255,13 +253,6 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 
 		String patronType = userManager.checkUserName(userID);
 		Resource resource = resourceManager.get(Isbn);
-
-		// String testIsbn = resource.getIsbn();
-		// if (testIsbn == null) {
-		// testIsbn = "";
-		// }
-		//
-		// Boolean test = testIsbn.equals(Isbn);
 
 		if ((patronType == null) || (resource == null)) {
 			String messageErr = "Không có bạn đọc hoặc tài nguyên với thông tin như trên";
@@ -784,23 +775,22 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		dispatch(jsp, request, response);
 	}
 
-	public void borrowed(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String patronID = (String) session.getAttribute("login.done");
-		System.out.println(patronID);
-		ResourceBorrowManager resourceBorrowManager = new ResourceBorrowManagerImpl();
-		List<ResourceBorrow> list = resourceBorrowManager
-				.getAllByPatron(patronID);
-		System.out.println(list.size());
-		if (list != null) {
-			jsp = "borrowed.jsp";
-			session.setAttribute("listborrowed", list);
-		}
-
-		dispatch(jsp, request, response);
-
-	}
+//	public void borrowed(HttpServletRequest request,
+//			HttpServletResponse response) throws ServletException, IOException {
+//		HttpSession session = request.getSession();
+//		String patronID = (String) session.getAttribute("login.done");
+//		System.out.println(patronID);
+//		ResourceBorrowManager resourceBorrowManager = new ResourceBorrowManagerImpl();
+//		List<ResourceBorrow> list = resourceBorrowManager.getAllByPatron(patronID);
+//		System.out.println(list.size());
+//		if (list != null) {
+//			jsp = "borrowed.jsp";
+//			session.setAttribute("listborrowed", list);
+//		}
+//
+//		dispatch(jsp, request, response);
+//
+//	}
 
 	public void requested(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
