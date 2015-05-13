@@ -1,3 +1,4 @@
+
 <script>
 	$(document).ready(function() {
 		$('#cssmenu li.active').children('ul').show();
@@ -83,12 +84,12 @@
 					}
 				%>
 				<%
-					if ("PATRON_STUDENT".equals(roles)) {
+					if ("PATRON_STUDENT".equals(roles) || "PATRON_FACULTY".equals(roles)) {
 				%>
 				<li class='has-sub'><a href='#'><span>Tài Nguyên</span></a>
 					<ul>
-						<li><a href='#'><span>Tài Nguyên Đã Mượn</span></a></li>
-						<li class='last'><a href='#'><span>Tài Nguyên Yêu
+						<li><a href=''><span>Tài Nguyên Đã Mượn</span></a></li>
+						<li class='last'><a href='requested.jsp'><span>Tài Nguyên Yêu
 									Cầu</span></a></li>
 					</ul></li>
 				<%

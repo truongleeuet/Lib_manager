@@ -1,9 +1,10 @@
 
-<!-- <script src="script.js"></script> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="jquery/jquery-1.11.2.min.js"></script> -->
+<!-- <script src="//code.jquery.com/jquery-1.11.2.js"></script> -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('ul.nav > li ').click(function(e) {
@@ -15,20 +16,16 @@
 	});
 </script>
 <script type="text/javascript">
-
-$(document).ready( function() {
-	$('.dropdown-toggle').dropdown();
-	});
-
+$(document).ready(function(){
+    $(".dropdown-toggle").dropdown();
+});  
 </script>
-
-<title>Insert title here</title>
 <%
 	String logedIn = (String) session.getAttribute("login.done");
 	String roles = (String) session.getAttribute("patron.roles");
 %>
 <link rel="stylesheet" type="text/css" href="css/header.css" />
-</head>
+
 
 	<div class="wrapheader">
 		<div>

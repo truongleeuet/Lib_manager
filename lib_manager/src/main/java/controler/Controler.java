@@ -73,9 +73,19 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		// List<Resource> listComputer =
 		// resourcemanager.listKindBook("Computer");
 		// HttpSession session = request.getSession();
-		// response.setContentType("application/json");
+		 response.setContentType("application/json");
+		 String term = request.getParameter("term");
+		 ArrayList<String> list = new ArrayList<String>();
+		 ResourceManager resourcemanager = new ResourceManager();
+//		List<Resource> listbook = resourcemanager.gets();
+//		for(int i=0;i<listbook.size();i++){
+//			list.add(listbook.get(i).getIsbn());
+//		}
+		list = resourcemanager.getIsbn(term);
+		String searchList = new Gson().toJson(list);
+        response.getWriter().write(searchList);
 		// System.out.print(new Gson().toJson(listComputer));
-		// response.getWriter().write(new Gson().toJson(listComputer));
+		 //response.getWriter().write(new Gson().toJson(listComputer));
 		// System.out.print(new Gson().toJson(listComputer));
 		/* session.setAttribute("ListCom", listComputer); */
 		doPost(request, response);
@@ -102,6 +112,15 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		 * resourcemanager.listKindBook("Computer"); HttpSession session
 		 * =request.getSession(); session.setAttribute("ListCom", listComputer);
 		 */
+//		response.setContentType("application/json");
+//		 String userid = request.getParameter("userid");
+//		ArrayList<String> listuser = new ArrayList<String>();
+//		 AbstractUserManager usermanager = new StudentManager();
+//		 listuser = usermanager.getIsbn(userid);
+//
+//      String searchuser = new Gson().toJson(listuser);
+//      response.getWriter().write(searchuser);
+		
 		action = request.getParameter("action");
 		PrintWriter out = response.getWriter();
 
@@ -789,8 +808,7 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		String patronID = (String) session.getAttribute("login.done");
 		System.out.println(patronID);
 		ResourceRequestManager resourceRequestManager = new ResourceRequestManagetImpl();
-		List<ResourceRequest> list = resourceRequestManager
-				.getAllByPatron(patronID);
+		List<ResourceRequest> list = resourceRequestManager.getAllByPatron(patronID);
 		System.out.println(list.size());
 		if (list != null) {
 			jsp = "requested.jsp";
@@ -863,6 +881,7 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 
 		UserManager userManager = new StudentManager();
 		roles = userManager.checkUser(userName, password);
+		System.out.println(roles);
 		if (roles != null) {
 			jsp = "index.jsp";
 			logedIn = userName;

@@ -13,12 +13,7 @@
 			<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css">
 				<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css.map">
 					<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
-						<script src="bootstrap/js/bootstrap.js"></script>
-						<script src="bootstrap/js/bootstrap.min.js"></script>
-						<script src="bootstrap/js/npm.js"></script>
-						<script src="jquery/jquery-2.1.3.js"></script>
-						<script src="jquery/jquery-2.1.3.min.js"></script>
-						<script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
+					<script type="text/javascript" src="jquery/jquery-1.11.2.min.js"></script>
 						<script src="jquery/jquery.autocomplete.js"></script>
 						<script type="text/javascript">
 							$(document).ready(function() {

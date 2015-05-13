@@ -193,9 +193,9 @@ public class JSONSimpleReadingFromFileExample {
 		}
 		return resource;
 	}
-	public static void main(String[] args) throws Exception{
-		JSONSimpleReadingFromFileExample json = new JSONSimpleReadingFromFileExample();
-		String isbn = "6048010591";
-		json.getInfo(isbn);
-	}
+//	public static void main(String[] args) throws Exception{
+//		JSONSimpleReadingFromFileExample json = new JSONSimpleReadingFromFileExample();
+//		String isbn = "6048010591";
+//		json.getInfo(isbn);
+//	}
 }

@@ -166,7 +166,7 @@ public class ResourceManager {
 		}
 		return resource;
 	}
-
+	
 	public List<Resource> gets() {
 		List<Resource> list = null;
 		String sql = "SELECT * FROM " + BOOK_TABLE_NAME;
@@ -229,6 +229,31 @@ public class ResourceManager {
 				resource.setPublisher(resultSet.getString(BOOK_PUBLISHER));
 				resource.setPublished(resultSet.getString(BOOK_PUBLISH_YEAR));
 				list.add(resource);
+			}
+			resultSet.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public ArrayList<String> getIsbn(String isbn) {
+		ArrayList<String> list = null;
+		String sql = "SELECT * FROM " + BOOK_TABLE_NAME + " WHERE " + BOOK_ISBN + " LIKE '" + isbn + "%'" ;
+		String data = "";
+		ResultSet resultSet = SqlExecute.executeCommand(sql);
+		if (resultSet == null) {
+			return null;
+		}
+		list = new ArrayList<String>();;
+		try {
+
+			while (resultSet.next()) {
+				
+
+				data = resultSet.getString(BOOK_ISBN);
+
+				list.add(data);
 			}
 			resultSet.close();
 		} catch (SQLException e) {

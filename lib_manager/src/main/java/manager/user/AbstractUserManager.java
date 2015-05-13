@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import sql.SqlExecute;
 
@@ -146,7 +147,31 @@ public abstract class AbstractUserManager implements UserManager {
 		}
 		return result;
 	}
+	
+	public ArrayList<String> getIsbn(String userId) {
+		ArrayList<String> list = null;
+		String sql = "SELECT * FROM " + PATRON_TABLE_NAME + " WHERE " + PATRON_USER_ID + " LIKE '" + userId + "%'" ;
+		String data = "";
+		ResultSet resultSet = SqlExecute.executeCommand(sql);
+		if (resultSet == null) {
+			return null;
+		}
+		list = new ArrayList<String>();;
+		try {
 
+			while (resultSet.next()) {
+				
+
+				data = resultSet.getString(PATRON_USER_ID);
+
+				list.add(data);
+			}
+			resultSet.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	public String checkUserName(String userID) {
 		// TODO Auto-generated method stub
 		String result = null;
