@@ -51,7 +51,9 @@
 					</div>
 					<div class="body">
 						<iframe id="Shacker" src="body.jsp" name="iframe_book"
-							onLoad="calcHeight();" scrolling="no"></iframe>
+							onLoad="calcHeight();" scrolling="no" MARGINWIDTH=0
+     MARGINHEIGHT=0></iframe>
+<%-- 							<jsp:include page="body.jsp" flush="true"/> --%>
 					</div>
 				</div>
 				<div>

@@ -1,7 +1,7 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-<!-- <script type="text/javascript" src="jquery/jquery-1.11.2.min.js"></script> -->
+<script type="text/javascript" src="jquery/jquery-1.11.2.min.js"></script>
 <!-- <script src="//code.jquery.com/jquery-1.11.2.js"></script> -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
@@ -36,7 +36,7 @@ $(document).ready(function(){
 				if (logedIn == null) {
 			%>
 			<p align="right">
-				&nbsp;&nbsp; Guest &nbsp;&nbsp; |&nbsp;&nbsp; <a href="login.jsp">Login</a>
+				&nbsp;&nbsp; Guest &nbsp;&nbsp; |&nbsp;&nbsp; <a href="login.jsp" >Login</a>
 				&nbsp;&nbsp;
 			</p>
 			<%
@@ -56,7 +56,7 @@ $(document).ready(function(){
 						class="glyphicon glyphicon-home"></span> HOME</a></li>
 
 				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#" role="button"> 
+					data-toggle="dropdown" href="Book.jsp" role="button"> 
 					<span class="glyphicon glyphicon-book"></span>BOOK<span
 						class="caret"></span>
 				</a>

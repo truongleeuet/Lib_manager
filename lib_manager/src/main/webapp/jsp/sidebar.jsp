@@ -59,20 +59,20 @@
 				%>
 				<li class='has-sub'><a href='#'><span>Action</span></a>
 					<ul>
-						<li><a href='checkOut.jsp'><span>Cho mượn tài
+						<li><a href='checkOut.jsp' target="iframe_book"><span>Cho mượn tài
 									nguyên</span></a></li>
-						<li class='last'><a href='checkIn.jsp'><span>Trả
+						<li class='last'><a href='checkIn.jsp' target="iframe_book"><span>Trả
 									tài nguyên</span></a></li>
 					</ul></li>
 				<li class='has-sub'><a href='#'><span>Nhật kí mượn
 							trả</span></a>
 					<ul>
-						<li><a href='diaryuser.jsp'><span>Người dùng</span></a></li>
-						<li class='last'><a href='diarybook.jsp'><span>Book</span></a></li>
+						<li><a href='diaryuser.jsp' target="iframe_book"><span>Người dùng</span></a></li>
+						<li class='last'><a href='diarybook.jsp' target="iframe_book"><span>Book</span></a></li>
 					</ul></li>
 				<li class='has-sub'><a href='#'><span>Manager</span></a>
 					<ul>
-						<li><a href='editBook.jsp'><span>Thêm Sách</span></a></li>
+						<li><a href='editBook.jsp' target="iframe_book"><span>Thêm Sách</span></a></li>
 						<li><a href='deleteResource.jsp'><span>Xóa Sách</span></a></li>
 						<li><a href='editPatron.jsp'><span>Thêm Bạn Đọc</span></a></li>
 						<li><a href='editPatron.jsp'><span>Cập Nhật Bạn

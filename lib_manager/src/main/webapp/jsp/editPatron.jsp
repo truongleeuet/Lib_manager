@@ -11,125 +11,94 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
-		<link rel="stylesheet" href="bootstrap/css/bootstrap.css.map">
-			<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css">
-				<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css.map">
-					<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
-						<script src="bootstrap/js/bootstrap.js"></script>
-						<script src="bootstrap/js/bootstrap.min.js"></script>
-						<script src="bootstrap/js/npm.js"></script>
-						<script src="jquery/jquery-2.1.3.js"></script>
-						<script src="jquery/jquery-2.1.3.min.js"></script>
-						<!--  <script>
-	$('.nav li a').click(function(e) {
-		alert('clicked');
-		var $this = $(this);
-		if (!$this.hasClass('active')) {
-			$this.addClass('active');
+
+<script type="text/javascript" src="jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript"
+	src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+<title>edit patron - Lib manager Sys</title>
+<%
+	String logedIn = (String) session.getAttribute("login.done");
+	String roles = (String) session.getAttribute("patron.roles");
+	//logedIn = "nttuyen";
+	if (logedIn == null || !"PATRON_LIB_MANAGER".equals(roles)) {
+		response.sendRedirect("login.jsp");
+	}
+	String action = null;
+	//Lấy ra đối tượng bạn đọc cần update
+	Patron patron = (Patron) request.getAttribute("patron_edit");
+	//Nếu có đối tượng update
+	if (patron != null) {
+		action = "UPDATE_PATRON";
+	} else {
+		//Nếu không có thì coi như tạo mới
+		patron = new Student();
+		action = "ADD_PATRON";
+	}
+	//Format ngày sinh của bạn đọc theo đúng định dạng
+	DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+	String date = df.format(patron.getBirthday());
+
+	//Tuỳ theo kiểu bạn đọc mà ta tạo đối tượng nào cho đúng
+	Student student = new Student();
+	Faculty faculty = new Faculty();
+	LibManager libManager = new LibManager();
+	String type = patron.getType();
+	int selection = -1;
+	if ("PATRON_STUDENT".equals(type)) {
+		selection = 0;
+		student = (Student) patron;
+	} else if ("PATRON_FACULTY".equals(type)) {
+		selection = 1;
+		faculty = (Faculty) patron;
+	} else if ("PATRON_LIB_MANAGER".equals(type)) {
+		selection = 2;
+		libManager = (LibManager) patron;
+	}
+	System.out.println("editPatron : " + patron.getUser_name());
+%>
+<!-- 	<script src="prototype.js"></script> -->
+
+<script type="text/javascript">
+	function patron_type() {
+		var student = document.getElementById("patron_student");
+		student.style.display = 'block';
+		var faculty = document.getElementById("patron_faculty");
+		faculty.style.display = 'none';
+		var libManager = document.getElementById("patron_libManager");
+		libManager.style.display = 'none';
+		<%if (selection == 0) {%>
+			student.style.display = 'block';
+		<%} else if (selection == 1) {%>
+			faculty.style.display = 'none';
+		<%} else if (selection == 2) {%>
+			libManager.style.display = 'none';
+		<%}%>
+	// 	alert("Page is loaded");
+	}
+	function patron_change(x) {
+		var whichSelected = x.selectedIndex;
+		var sel = x.options[whichSelected].text;
+		var student = document.getElementById("patron_student");
+		var faculty = document.getElementById("patron_faculty");
+		var libManager = document.getElementById("patron_libManager");
+		if (sel === 'Sinh viên') {
+			student.style.display = 'block';
+			faculty.style.display = 'none';
+			libManager.style.display = 'none';
+		} else if (sel === 'Giảng viên') {
+			faculty.style.display = 'block';
+			student.style.display = 'none';
+			libManager.style.display = 'none';
+		}else if (sel === 'Nhân viên thư viện') {
+			student.style.display = 'none';
+			faculty.style.display = 'none';
+			libManager.style.display = 'block';
 		}
-		//e.preventDefault();
-	});
-</script>-->
-						<script type="text/javascript">
-							$(document).ready(function() {
-								$('ul.nav > li ').click(function(e) {
-									alert('clicked');
-									//e.preventDefault();
-									$('ul.nav > li ').removeClass('active');
-									$(this).addClass('active');
-								});
-							});
-						</script>
-						<title>edit patron - Lib manager Sys</title> <%
- 	String logedIn = (String) session.getAttribute("login.done");
- 	String roles = (String) session.getAttribute("patron.roles");
- 	//logedIn = "nttuyen";
- 	if (logedIn == null || !"PATRON_LIB_MANAGER".equals(roles)) {
- 		response.sendRedirect("login.jsp");
- 	}
- 	String action = null;
- 	//Lấy ra đối tượng bạn đọc cần update
- 	Patron patron = (Patron) request.getAttribute("patron_edit");
- 	//Nếu có đối tượng update
- 	if (patron != null) {
- 		action = "UPDATE_PATRON";
- 	} else {
- 		//Nếu không có thì coi như tạo mới
- 		patron = new Student();
- 		action = "ADD_PATRON";
- 	}
- 	//Format ngày sinh của bạn đọc theo đúng định dạng
- 	DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
- 	String date = df.format(patron.getBirthday());
 
- 	//Tuỳ theo kiểu bạn đọc mà ta tạo đối tượng nào cho đúng
- 	Student student = new Student();
- 	Faculty faculty = new Faculty();
- 	LibManager libManager = new LibManager();
- 	String type = patron.getType();
- 	int selection = -1;
- 	if ("PATRON_STUDENT".equals(type)) {
- 		selection = 0;
- 		student = (Student) patron;
- 	} else if ("PATRON_FACULTY".equals(type)) {
- 		selection = 1;
- 		faculty = (Faculty) patron;
- 	} else if ("PATRON_LIB_MANAGER".equals(type)) {
- 		selection = 2;
- 		libManager = (LibManager) patron;
- 	}
- 	System.out.println("editPatron : " + patron.getUser_name());
- %>
-
-						<link rel="stylesheet" type="text/css" href="style.css">
-
-
-							<script src="prototype.js"></script>
-
-							<script type="text/javascript">
-								function patron_type() {
-									var student = $("patron_student");
-									student.style.display = 'none';
-									var faculty = $("patron_faculty");
-									faculty.style.display = 'none';
-									var libManager = $("patron_libManager");
-									libManager.style.display = 'none';
-							<%if (selection == 0) {%>
-								student.style.display = 'block';
-							<%} else if (selection == 1) {%>
-								faculty.style.display = 'block';
-							<%} else if (selection == 2) {%>
-								libManager.style.display = 'block';
-							<%}%>
-								}
-								function patron_change(selObj, restore) { //v3.0
-									//eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-									if (restore)
-										selObj.selectedIndex = 0;
-
-									var student = $("patron_student");
-									var faculty = $("patron_faculty");
-									var libManager = $("patron_libManager");
-
-									//else selObj.selectedIndex=1;
-									if (selObj.selectedIndex == 0) {
-										student.style.display = 'block';
-										faculty.style.display = 'none';
-										libManager.style.display = 'none';
-
-									} else if (selObj.selectedIndex == 1) {
-										faculty.style.display = 'block';
-										student.style.display = 'none';
-										libManager.style.display = 'none';
-									} else if (selObj.selectedIndex == 2) {
-										student.style.display = 'none';
-										faculty.style.display = 'none';
-										libManager.style.display = 'block';
-									}
-								}
-							</script>
+	}
+</script>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
@@ -168,8 +137,8 @@
 											<td width="29%"><p>
 													<strong>Mã đăng nhập : </strong>
 												</p></td>
-											<td width="71%"><input name="patron.userID"
-												type="text" id="patron.userID" size="35"
+											<td width="71%"><input name="patron.userID" type="text"
+												id="patron.userID" size="35"
 												value="<%=patron.getUser_id()%>" /></td>
 										</tr>
 										<tr>
@@ -223,7 +192,7 @@
 													<strong>Chức vụ : </strong>
 												</p></td>
 											<td><select name="patron.roles" id="patron.roles"
-												onchange="patron_change(this,0);">
+												onchange="patron_change(this);">
 													<option value="PATRON_STUDENT">Sinh viên</option>
 													<option value="PATRON_FACULTY">Giảng viên</option>
 													<option value="PATRON_LIB_MANAGER">Nhân viên thư
@@ -310,7 +279,7 @@
 											</tr>
 										</table>
 									</div>
-								</form> 
+								</form>
 
 								<p class="right">&nbsp;</p>
 							</td>

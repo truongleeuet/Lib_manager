@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import manager.resource.Resource;
+import manager.resource.ResourceManager;
 import sql.SqlExecute;
 
 public class ResourceBorrowManagerImpl implements ResourceBorrowManager {
@@ -365,5 +367,30 @@ public class ResourceBorrowManagerImpl implements ResourceBorrowManager {
 			return false;
 		}
 		return true;
+	}
+	
+	//Trả về 5 cuốn sách được mượn nhiều nhất hot nhất
+	
+	public List<Resource> getBookHot(){
+		String sql = "SELECT *,COUNT(*) AS TOTAL FROM " + TABLE_NAME + " GROUP BY " + BOOK_ISBN +" ORDER BY TOTAL DESC LIMIT 5";
+		List<Resource> listbookhot = null;
+		ResultSet resultset = SqlExecute.executeCommand(sql);
+		ResourceManager resourcemanager = new ResourceManager();
+		if(resultset == null){
+			System.out.println("Truy van bi loi o ham getBookHot...");
+		}
+		listbookhot = new ArrayList<Resource>();
+		try {
+			while(resultset.next()){
+				Resource resource = new Resource();
+				resource = resourcemanager.get(resultset.getString(BOOK_ISBN));
+				listbookhot.add(resource);
+			}
+			resultset.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listbookhot;
 	}
 }

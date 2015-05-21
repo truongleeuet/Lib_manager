@@ -1,45 +1,25 @@
 <%@page import="manager.resource.ResourceManager"%>
 <%@ page contentType="text/html; charset=utf-8" language="java"
 	errorPage=""%>
-<%@  include file="listbook.jsp"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- <script type="text/javascript" src="jquery/jquery-1.11.2.min.js"></script> -->
-<!-- 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.4.2.min.js"></script> -->
-<script src="jquery/autocompleter.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.4.2.min.js"></script>
+<script src="jquery/jquery.autocomplete.js"></script>
 
-
-<!-- <link rel="stylesheet" -->
-<!-- 	href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"> -->
-<script type="text/javascript" src="jquery/jquery-1.11.2.min.js"></script>
-<script type="text/javascript"
-	src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script>
-	$(document).ready(function() {
-		$(function() {
-			$(".book_isbn,#tags").autocomplete({
-
-				source : function(request, response) {
-					$.ajax({
-						url : "/lib_manager/jsp/controler",
-						type : "GET",
-						data : {
-							term : request.term
-						},
-						dataType : "json",
-						success : function(data) {
-							response(data);
-						}
-					});
-				}
-			});
-		});
+	jQuery(function() {
+		$("#user_id").autocomplete("listpatron.jsp");
 	});
 </script>
-
+<script>
+	jQuery(function() {
+		$("#book_isbn").autocomplete("listbook.jsp");
+	});
+</script>
 `
 <title>check out - lib manager sys</title>
 <%
@@ -60,35 +40,35 @@
 	// 	String result = webcam.getResult();
 %>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
-<link rel="stylesheet" type="text/css" href="css/autocomplete.css" />
+<link rel="stylesheet" type="text/css" href="css/stylesugess.css" />
 </head>
 
 <body>
 
-	<table>
-		<tr valign="top">
+<!-- 	<table> -->
+<!-- 		<tr valign="top"> -->
 
-			<td>
-				<div>
-					<!-- 										Header -->
-					<jsp:include page="header.jsp" />
-					<!-- 										 End Header -->
-				</div>
-				<div>
-					<jsp:include page="carousel.jsp" flush="true" />
-				</div>
-				<div class="wrapmiddel">
+<!-- 			<td> -->
+<!-- 				<div> -->
+<!-- 															Header -->
+<%-- 					<jsp:include page="header.jsp" /> --%>
+<!-- 															 End Header -->
+<!-- 				</div> -->
+<!-- 				<div> -->
+<%-- 					<jsp:include page="carousel.jsp" flush="true" /> --%>
+<!-- 				</div> -->
+<!-- 				<div class="wrapmiddel"> -->
 
-					<div class="sidebar">
-						<jsp:include page="sidebar.jsp" flush="true" />
-					</div>
+<!-- 					<div class="sidebar"> -->
+<%-- 						<jsp:include page="sidebar.jsp" flush="true" /> --%>
+<!-- 					</div> -->
 
 
-					<div align="center">
-						<p align="center">..:: Home &gt; Đặt sách::..</p>
-					</div>
+<!-- 					<div align="center"> -->
+<!-- 						<p align="center">..:: Home &gt; Đặt sách::..</p> -->
+<!-- 					</div> -->
 
-					<div>
+<!-- 					<div> -->
 						<table width="710px">
 							<tr valign="top">
 								<td>
@@ -105,12 +85,12 @@
 											<tr>
 												<td width="45"><p>Mã đăng nhập của người mượn:</p></td>
 												<td><input name="checkOut.userID" type="text"
-													id="checkOut.userID" class="user_id"></td>
+													id="user_id"></td>
 											</tr>
 											<tr>
 												<td width="45"><p>Mã của cuốn sách mượn :</p></td>
 												<td><input name="checkOut.Isbn" type="text"
-													id="checkOut.Isbn" class="book_isbn"></td>
+													id="book_isbn"></td>
 											</tr>
 											<tr>
 												<td>&nbsp;</td>
@@ -123,26 +103,19 @@
 											</tr>
 										</table>
 									</form>
-									<div class="ui-widget">
-										<label for="tags">Tags: </label> <input id="tags">
-									</div>
-									<div class="search-container">
-										<div class="ui-widget">
-											<input  id="search" />
-										</div>
-									</div>
+
 								</td>
 							</tr>
 						</table>
-					</div>
-				</div>
+<!-- 					</div> -->
+<!-- 				</div> -->
 
-				<div>
-					<jsp:include page="footer.jsp" flush="true" />
-				</div>
-			</td>
-		</tr>
-	</table>
+<!-- 				<div> -->
+<%-- 					<jsp:include page="footer.jsp" flush="true" /> --%>
+<!-- 				</div> -->
+<!-- 			</td> -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
 
 </body>
 </html>

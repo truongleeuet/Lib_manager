@@ -77,13 +77,11 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		 String term = request.getParameter("term");
 		 ArrayList<String> list = new ArrayList<String>();
 		 ResourceManager resourcemanager = new ResourceManager();
-//		List<Resource> listbook = resourcemanager.gets();
-//		for(int i=0;i<listbook.size();i++){
-//			list.add(listbook.get(i).getIsbn());
-//		}
-		list = resourcemanager.getIsbn(term);
+//		 AbstractUserManager usermanager = new StudentManager();
+		list = resourcemanager.getIsbn(term);;
 		String searchList = new Gson().toJson(list);
         response.getWriter().write(searchList);
+   
 		// System.out.print(new Gson().toJson(listComputer));
 		 //response.getWriter().write(new Gson().toJson(listComputer));
 		// System.out.print(new Gson().toJson(listComputer));
