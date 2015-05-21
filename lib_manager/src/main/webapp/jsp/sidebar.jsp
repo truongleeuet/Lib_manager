@@ -73,11 +73,11 @@
 				<li class='has-sub'><a href='#'><span>Manager</span></a>
 					<ul>
 						<li><a href='editBook.jsp' target="iframe_book"><span>Thêm Sách</span></a></li>
-						<li><a href='deleteResource.jsp'><span>Xóa Sách</span></a></li>
-						<li><a href='editPatron.jsp'><span>Thêm Bạn Đọc</span></a></li>
-						<li><a href='editPatron.jsp'><span>Cập Nhật Bạn
+						<li><a href='deleteResource.jsp' target="iframe_book"><span>Xóa Sách</span></a></li>
+						<li><a href='newPatron.jsp' target="iframe_book"><span>Thêm Bạn Đọc</span></a></li>
+						<li><a href='editPatron.jsp' target="iframe_book"><span>Cập Nhật Bạn
 									Đọc</span></a></li>
-						<li class='last'><a href='deletePatron.jsp'><span>Xóa
+						<li class='last'><a href='deletePatron.jsp' target="iframe_book"><span>Xóa
 									Bạn Đọc</span></a></li>
 					</ul></li>
 				<%

@@ -73,17 +73,18 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		// List<Resource> listComputer =
 		// resourcemanager.listKindBook("Computer");
 		// HttpSession session = request.getSession();
-		 response.setContentType("application/json");
-		 String term = request.getParameter("term");
-		 ArrayList<String> list = new ArrayList<String>();
-		 ResourceManager resourcemanager = new ResourceManager();
-//		 AbstractUserManager usermanager = new StudentManager();
-		list = resourcemanager.getIsbn(term);;
+		response.setContentType("application/json");
+		String term = request.getParameter("term");
+		ArrayList<String> list = new ArrayList<String>();
+		ResourceManager resourcemanager = new ResourceManager();
+		// AbstractUserManager usermanager = new StudentManager();
+		list = resourcemanager.getIsbn(term);
+		;
 		String searchList = new Gson().toJson(list);
-        response.getWriter().write(searchList);
-   
+		response.getWriter().write(searchList);
+
 		// System.out.print(new Gson().toJson(listComputer));
-		 //response.getWriter().write(new Gson().toJson(listComputer));
+		// response.getWriter().write(new Gson().toJson(listComputer));
 		// System.out.print(new Gson().toJson(listComputer));
 		/* session.setAttribute("ListCom", listComputer); */
 		doPost(request, response);
@@ -110,15 +111,15 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		 * resourcemanager.listKindBook("Computer"); HttpSession session
 		 * =request.getSession(); session.setAttribute("ListCom", listComputer);
 		 */
-//		response.setContentType("application/json");
-//		 String userid = request.getParameter("userid");
-//		ArrayList<String> listuser = new ArrayList<String>();
-//		 AbstractUserManager usermanager = new StudentManager();
-//		 listuser = usermanager.getIsbn(userid);
-//
-//      String searchuser = new Gson().toJson(listuser);
-//      response.getWriter().write(searchuser);
-		
+		// response.setContentType("application/json");
+		// String userid = request.getParameter("userid");
+		// ArrayList<String> listuser = new ArrayList<String>();
+		// AbstractUserManager usermanager = new StudentManager();
+		// listuser = usermanager.getIsbn(userid);
+		//
+		// String searchuser = new Gson().toJson(listuser);
+		// response.getWriter().write(searchuser);
+
 		action = request.getParameter("action");
 		PrintWriter out = response.getWriter();
 
@@ -453,12 +454,23 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 	public void deleteResource(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String Isbn = request.getParameter("delete.resourceID");
-		ResourceManager resourceManager = new ResourceManager();
+		ResourceBorrowManager resourceborrow = new ResourceBorrowManagerImpl();
+		ResourceRequestManager resourcerequest = new ResourceRequestManagetImpl();
+		List<ResourceBorrow> listborrow = resourceborrow.getAllByResource(Isbn);
+		List<ResourceRequest> listrequest = resourcerequest
+				.getAllByResource(Isbn);
+		if (listborrow != null || listrequest != null) {
+			String messageErr = "Tài nguyên này đang cho mượn hoặc đã được đặt";
+			jsp = "deleteResource.jsp";
+			request.setAttribute("messageErr", messageErr);
+		} else {
+			ResourceManager resourceManager = new ResourceManager();
 
-		resourceManager = new ResourceManager();
+			resourceManager = new ResourceManager();
 
-		resourceManager.remove(Isbn);
-		jsp = "index.jsp";
+			resourceManager.remove(Isbn);
+			jsp = "index.jsp";
+		}
 		dispatch(jsp, request, response);
 	}
 
@@ -588,8 +600,20 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		} else if (Patron.STUDENT_TYPE.equals(type)) {
 			userManager = new StudentManager();
 		}
-		userManager.remove(userName);
-		jsp = "index.jsp";
+		ResourceBorrowManager resourceborrow = new ResourceBorrowManagerImpl();
+		ResourceRequestManager resourcerequest = new ResourceRequestManagetImpl();
+		List<ResourceBorrow> listborrow = resourceborrow
+				.getAllByPatron(userName);
+		List<ResourceRequest> listrequest = resourcerequest
+				.getAllByPatron(userName);
+		if (listborrow != null || listrequest != null) {
+			String messageErr = "Bạn đọc này đang mượn hoặc đã đặt tài nguyên";
+			jsp = "deleteResource.jsp";
+			request.setAttribute("messageErr", messageErr);
+		} else {
+			userManager.remove(userName);
+			jsp = "index.jsp";
+		}
 		dispatch(jsp, request, response);
 	}
 
@@ -597,6 +621,7 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			HttpServletResponse response) throws ServletException, IOException {
 
 		UserManager userManager = new StudentManager();
+		String userId = request.getParameter("patron.userID");
 		String userName = request.getParameter("patron.userName");
 		System.out.println(userName);
 		String password = request.getParameter("patron.password");
@@ -614,10 +639,10 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		String email = request.getParameter("patron.email");
 		String address = request.getParameter("patron.address");
 
-		String roles = userManager.checkUserName(userName);
+		String roles = userManager.checkUserName(userId);
 		System.out.println(roles);
 		if (roles == null) {
-			jsp = "index.jsp";
+			jsp = "body.jsp";
 			dispatch(jsp, request, response);
 		}
 		// String roles = request.getParameter("patron.roles");
@@ -650,6 +675,7 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			request.setAttribute("patron_edit", libManager);
 		} else if (Patron.FACULTY_TYPE.equals(roles)) {
 			Faculty patron = new Faculty();
+			patron.setUser_id(userId);
 			patron.setUser_name(userName);
 			patron.setUser_password(password);
 			patron.setFull_name(fullName);
@@ -682,7 +708,7 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			userManager.update(patron);
 			request.setAttribute("patron_edit", patron);
 		}
-		jsp = "index.jsp";
+		jsp = "body.jsp";
 		dispatch(jsp, request, response);
 	}
 
@@ -769,26 +795,28 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			// userManager.addPatron(patron);
 			userManager.add(patron);
 		}
-		jsp = "index.jsp";
+		jsp = "body.jsp";
 		dispatch(jsp, request, response);
 	}
 
-//	public void borrowed(HttpServletRequest request,
-//			HttpServletResponse response) throws ServletException, IOException {
-//		HttpSession session = request.getSession();
-//		String patronID = (String) session.getAttribute("login.done");
-//		System.out.println(patronID);
-//		ResourceBorrowManager resourceBorrowManager = new ResourceBorrowManagerImpl();
-//		List<ResourceBorrow> list = resourceBorrowManager.getAllByPatron(patronID);
-//		System.out.println(list.size());
-//		if (list != null) {
-//			jsp = "borrowed.jsp";
-//			session.setAttribute("listborrowed", list);
-//		}
-//
-//		dispatch(jsp, request, response);
-//
-//	}
+	// public void borrowed(HttpServletRequest request,
+	// HttpServletResponse response) throws ServletException, IOException {
+	// HttpSession session = request.getSession();
+	// String patronID = (String) session.getAttribute("login.done");
+	// System.out.println(patronID);
+	// ResourceBorrowManager resourceBorrowManager = new
+	// ResourceBorrowManagerImpl();
+	// List<ResourceBorrow> list =
+	// resourceBorrowManager.getAllByPatron(patronID);
+	// System.out.println(list.size());
+	// if (list != null) {
+	// jsp = "borrowed.jsp";
+	// session.setAttribute("listborrowed", list);
+	// }
+	//
+	// dispatch(jsp, request, response);
+	//
+	// }
 
 	public void requested(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -796,7 +824,8 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		String patronID = (String) session.getAttribute("login.done");
 		System.out.println(patronID);
 		ResourceRequestManager resourceRequestManager = new ResourceRequestManagetImpl();
-		List<ResourceRequest> list = resourceRequestManager.getAllByPatron(patronID);
+		List<ResourceRequest> list = resourceRequestManager
+				.getAllByPatron(patronID);
 		System.out.println(list.size());
 		if (list != null) {
 			jsp = "requested.jsp";

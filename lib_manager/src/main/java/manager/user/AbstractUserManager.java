@@ -94,14 +94,16 @@ public abstract class AbstractUserManager implements UserManager {
 		System.out
 				.println("Dinh dang date trong phuong thuc update o class AbstractUserManager : "
 						+ df.format(date));
-		String sql = "UPDATE " + PATRON_TABLE_NAME + " SET " + PATRON_PASSWORD
+		String sql = "UPDATE " + PATRON_TABLE_NAME + " SET " + PATRON_USER_NAME +"='"+patron.getUser_name()
+				+"' ,"
+				+ PATRON_PASSWORD
 				+ "='" + patron.getUser_password() + "' , " + PATRON_EMAIL
 				+ "='" + patron.getEmail() + "' , " + PATRON_BIRTHDAY + "='"
 				+ df.format(date) + "' ,  " + PATRON_ADDRESS + "='"
 				+ patron.getAddress() + "', " + PATRON_FULL_NAME + "='"
 				+ patron.getFull_name() + "', " + PATRON_TYPE + "='"
-				+ patron.getType() + "' " + " WHERE " + PATRON_USER_NAME + "='"
-				+ patron.getUser_name() + "';";
+				+ patron.getType() + "' " + " WHERE " + PATRON_USER_ID + "='"
+				+ patron.getUser_id() + "';";
 		System.out.println("SQL command : " + sql);
 		return SqlExecute.executeUpdate(sql);
 	}

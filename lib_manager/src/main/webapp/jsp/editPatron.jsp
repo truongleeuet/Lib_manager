@@ -1,17 +1,27 @@
 <%@ page contentType="text/html; charset=utf-8" language="java"
 	import="java.sql.*" errorPage=""%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<%@page import="manager.user.Patron"%>
+<%@page import="manager.user.*"%>
 <%@page import="manager.user.Student"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="manager.user.Faculty"%>
 <%@page import="manager.user.LibStaffManager"%>
 <%@page import="manager.user.LibManager"%>
+<%@ page import="support.WebcamQRCodeExample"%>
+<%@ page import="support.JSONSimpleReadingFromFileExample"%>
+<%@ page import="com.github.sarxos.webcam.*"%>
+<%@ page import="com.google.zxing.*"%>
+<%@ page
+	import="com.google.zxing.client.j2se.BufferedImageLuminanceSource"%>
+<%@ page import="com.google.zxing.common.HybridBinarizer"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
 <script type="text/javascript" src="jquery/jquery-1.11.2.min.js"></script>
 <script type="text/javascript"
 	src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
@@ -27,20 +37,24 @@
 	}
 	String action = null;
 	//Lấy ra đối tượng bạn đọc cần update
-	Patron patron = (Patron) request.getAttribute("patron_edit");
+	Patron patron = new Student();
+	
 	//Nếu có đối tượng update
-	if (patron != null) {
-		action = "UPDATE_PATRON";
-	} else {
-		//Nếu không có thì coi như tạo mới
-		patron = new Student();
-		action = "ADD_PATRON";
-	}
+// 	if (patron != null) {
+// 		action = "UPDATE_PATRON";
+// 	} else {
+// 		//Nếu không có thì coi như tạo mới
+// 		patron = new Student();
+// 		action = "ADD_PATRON";
+// 	}
 	//Format ngày sinh của bạn đọc theo đúng định dạng
 	DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 	String date = df.format(patron.getBirthday());
 
 	//Tuỳ theo kiểu bạn đọc mà ta tạo đối tượng nào cho đúng
+	WebcamQRCodeExample webcam = new WebcamQRCodeExample();
+	UserManager userManager = new FacultyManager();
+	patron = userManager.get(webcam.getResult());
 	Student student = new Student();
 	Faculty faculty = new Faculty();
 	LibManager libManager = new LibManager();
@@ -63,7 +77,7 @@
 <script type="text/javascript">
 	function patron_type() {
 		var student = document.getElementById("patron_student");
-		student.style.display = 'block';
+		student.style.display = 'none';
 		var faculty = document.getElementById("patron_faculty");
 		faculty.style.display = 'none';
 		var libManager = document.getElementById("patron_libManager");
@@ -71,9 +85,9 @@
 		<%if (selection == 0) {%>
 			student.style.display = 'block';
 		<%} else if (selection == 1) {%>
-			faculty.style.display = 'none';
+			faculty.style.display = 'block';
 		<%} else if (selection == 2) {%>
-			libManager.style.display = 'none';
+			libManager.style.display = 'block';
 		<%}%>
 	// 	alert("Page is loaded");
 	}
@@ -104,26 +118,26 @@
 
 <body onLoad="patron_type();">
 
-	<table>
-		<tr valign="top">
-			<td>
-				<div>
-					<!-- Header -->
-					<jsp:include page="header.jsp" />
-					<!--  End Header -->
-				</div>
-				<div>
-					<jsp:include page="carousel.jsp" flush="true" />
-				</div>
-				<div class="wrapmiddel">
-					<div class="sidebar">
-						<jsp:include page="sidebar.jsp" flush="true" />
-					</div>
+<!-- 	<table> -->
+<!-- 		<tr valign="top"> -->
+<!-- 			<td> -->
+<!-- 				<div> -->
+<!-- 					Header -->
+<%-- 					<jsp:include page="header.jsp" /> --%>
+<!-- 					 End Header -->
+<!-- 				</div> -->
+<!-- 				<div> -->
+<%-- 					<jsp:include page="carousel.jsp" flush="true" /> --%>
+<!-- 				</div> -->
+<!-- 				<div class="wrapmiddel"> -->
+<!-- 					<div class="sidebar"> -->
+<%-- 						<jsp:include page="sidebar.jsp" flush="true" /> --%>
+<!-- 					</div> -->
 
 
-					<div align="center">
-						<p align="center">..:: Home &gt; Đặt sách::..</p>
-					</div>
+<!-- 					<div align="center"> -->
+<!-- 						<p align="center">..:: Home &gt; Đặt sách::..</p> -->
+<!-- 					</div> -->
 					<table>
 						<tr valign="top">
 							<td width="45%">
@@ -153,7 +167,7 @@
 											<td><p>
 													<strong>Mật khẩu : </strong>
 												</p></td>
-											<td><input name="patron.password" type="text"
+											<td><input name="patron.password" type="password"
 												id="patron.password" size="35"
 												value="<%=patron.getUser_password()%>" /></td>
 										</tr>
@@ -169,8 +183,8 @@
 											<td><p>
 													<strong>Ngày sinh : </strong>
 												</p></td>
-											<td><input name="patron.birthday" type="date"
-												id="patron.birthday" size="35" value="<%=date%>" /></td>
+											<td><input name="patron.birthday" type="text"
+												id="patron.birthday" size="35" value="<%=patron.getBirthday()%>" /></td>
 										</tr>
 										<tr>
 											<td><p>
@@ -188,17 +202,25 @@
 												value="<%=patron.getAddress()%>" /></td>
 										</tr>
 										<tr>
-											<td height="30"><p>
+											<td><p>
 													<strong>Chức vụ : </strong>
 												</p></td>
-											<td><select name="patron.roles" id="patron.roles"
-												onchange="patron_change(this);">
-													<option value="PATRON_STUDENT">Sinh viên</option>
-													<option value="PATRON_FACULTY">Giảng viên</option>
-													<option value="PATRON_LIB_MANAGER">Nhân viên thư
-														viện</option>
-											</select></td>
+											<td><input name="patron.address" type="text"
+												id="patron.address" size="35"
+												value="<%=patron.getType()%>" /></td>
 										</tr>
+<!-- 										<tr> -->
+<!-- 											<td height="30"><p> -->
+<!-- 													<strong>Chức vụ : </strong> -->
+<!-- 												</p></td> -->
+<!-- 											<td><select name="patron.roles" id="patron.roles" -->
+<!-- 												onchange="patron_change(this);"> -->
+<!-- 													<option value="PATRON_STUDENT">Sinh viên</option> -->
+<!-- 													<option value="PATRON_FACULTY">Giảng viên</option> -->
+<!-- 													<option value="PATRON_LIB_MANAGER">Nhân viên thư -->
+<!-- 														viện</option> -->
+<!-- 											</select></td> -->
+<!-- 										</tr> -->
 									</table>
 									<div id="patron_student">
 										<table width="95%" border="0" align="center">
@@ -242,7 +264,7 @@
 												<td><p>
 														<strong>Môn dạy : </strong>
 													</p></td>
-												<td><input name="department.subjects" type="text"
+												<td><input name="faculty.subjects" type="text"
 													id="faculty.subjects" size="35"
 													value="<%=faculty.getSubjects()%>" /></td>
 											</tr>
@@ -265,7 +287,7 @@
 											<tr>
 												<td width="30%" height="21">&nbsp;</td>
 												<td width="53%"><div align="center">
-														<input name="action" type="hidden" value="<%=action%>" />
+														<input name="action" type="hidden" value="UPDATE_PATRON" />
 														<input name="patron.submit" type="submit"
 															id="patron.submit" value="Save" /> <input
 															name="patron.reset" type="reset" id="patron.reset" />
@@ -286,13 +308,13 @@
 						</tr>
 					</table>
 
-				</div>
-				<div>
-					<%@include file="footer.jsp"%>
-				</div>
-			</td>
-		</tr>
-	</table>
+<!-- 				</div> -->
+<!-- 				<div> -->
+<%-- 					<%@include file="footer.jsp"%> --%>
+<!-- 				</div> -->
+<!-- 			</td> -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
 
 </body>
 </html>

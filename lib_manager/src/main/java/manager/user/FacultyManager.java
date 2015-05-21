@@ -130,19 +130,20 @@ public class FacultyManager extends AbstractUserManager {
 		Faculty faculty = (Faculty)patron ;
 		
 		String sql1 = "UPDATE " + FACULTY_TABLE_NAME + " SET " +
+			FACULTY_ID + "='" +faculty.getUser_id()+"' ,"+
 			FACULTY_DEPARTMENT + "='"+faculty.getDepartment()+"' , " +
 			FACULTY_SUBJECTS + "='"+ faculty.getSubjects() + "'   " +
 			" WHERE "+ PATRON_USER_NAME + "='"+faculty.getUser_name()+"';";
 		return super.update(patron) && SqlExecute.executeUpdate(sql1);
 	}
 
-	public Patron get(String userName) {
+	public Patron get(String userID) {
 		// TODO Auto-generated method stub
 		Faculty faculty = null ;
 		
 		String sql = "SELECT * FROM " + PATRON_TABLE_NAME + " , " + FACULTY_TABLE_NAME +
-						" WHERE (" + PATRON_TABLE_NAME + "." + PATRON_USER_NAME + "="+FACULTY_TABLE_NAME+"." + PATRON_USER_NAME +
-						") AND (" + PATRON_TABLE_NAME + "." + PATRON_USER_NAME + " = '"+userName+"')" ;
+						" WHERE (" + PATRON_TABLE_NAME + "." + PATRON_USER_ID + "="+FACULTY_TABLE_NAME+"." + FACULTY_ID +
+						") AND (" + PATRON_TABLE_NAME + "." + PATRON_USER_ID + " = '"+userID+"')" ;
 		
 		ResultSet resultSet = SqlExecute.executeCommand(sql);
 		if(resultSet == null){
@@ -153,7 +154,7 @@ public class FacultyManager extends AbstractUserManager {
 			
 			if(resultSet.next()){
 				faculty = new Faculty();
-				
+				faculty.setUser_id(resultSet.getString(PATRON_USER_ID));
 				faculty.setUser_name(resultSet.getString(PATRON_USER_NAME));
 				faculty.setUser_password(resultSet.getString(PATRON_PASSWORD));
 				faculty.setEmail(resultSet.getString(PATRON_EMAIL));
