@@ -32,17 +32,16 @@
 </script>
 <title>check out - lib manager sys</title>
 <%
-	String logedIn = (String) session.getAttribute("login.done");
-	String roles = (String) session.getAttribute("patron.roles");
+	String logedIn = (String) session.getAttribute("login_done");
+	String roles = (String) session.getAttribute("patron_roles");
 	//logedIn = "nttuyen";
 	//Nếu chưa đăng nhập hoặc không fải là nhân viên thư viện thì không được truy cập trang này
 	// 	if (logedIn == null || !"PATRON_STUDENT".equals(roles)) {
 	// 		response.sendRedirect("login.jsp");
 	// 	}
 	ResourceBorrowManagerImpl requestmanager = new ResourceBorrowManagerImpl();
-	List<ResourceBorrow> listborrowed = requestmanager
-			.getAllByPatron(logedIn);
-	if (listborrowed == null) {
+	List<ResourceBorrow> listborrowed = requestmanager.getAllByPatron(logedIn);
+	if (listborrowed.isEmpty()) {
 		listborrowed = new ArrayList<ResourceBorrow>();
 	}
 	String messageErr = (String) request.getAttribute("messageErr");
@@ -102,7 +101,7 @@
 											<th>Tiền phạt</th>
 										</tr>
 										<%
-											if (listborrowed != null) {
+											if (!listborrowed.isEmpty()) {
 												for (int i = 0; i < listborrowed.size(); i++) {
 													Date renderDate = listborrowed.get(i).getRenderDate();
 													int numberDate = currentDate.compareTo(renderDate);

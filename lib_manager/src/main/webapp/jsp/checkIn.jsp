@@ -24,7 +24,7 @@
 	Nếu rồi thì đó là sinh viên, giảng viên hay nhân viên thư viện -->
 <%
 	//String logedIn = (String) session.getAttribute("login.done");
-	String roles = (String) session.getAttribute("patron_roles");
+// 	String roles = (String) session.getAttribute("patron_roles");
 
 	//roles = "PATRON_LIB_MANAGER";
 	//Nếu chưa đăng nhập hoặc không fải là nhân viên thư viện thì không được truy cập trang này

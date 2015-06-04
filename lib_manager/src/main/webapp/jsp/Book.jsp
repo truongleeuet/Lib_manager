@@ -72,8 +72,8 @@
 							});
 		</script>
 		<title>Book info - Lib Manager Sys</title> <%
- 	String logedIn = (String) session.getAttribute("login.done");
- 	String roles = (String) session.getAttribute("patron.roles");
+ 	String logedIn = (String) session.getAttribute("login_done");
+ 	String roles = (String) session.getAttribute("patron_roles");
 
  	Resource book = (Resource) request.getAttribute("book_edit");
  	if (book == null) {
@@ -92,8 +92,7 @@
  	int currentPage = 1;
  	if (request.getParameter("page") != null) {
  		try {
- 			currentPage = Integer
- 					.parseInt(request.getParameter("page"));
+ 			currentPage = Integer.parseInt(request.getParameter("page"));
  		} catch (Exception e) {
  			currentPage = 1;
  		}
