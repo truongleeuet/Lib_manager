@@ -109,7 +109,7 @@ public abstract class AbstractUserManager implements UserManager {
 	}
 
 	// Check username
-	public String checkUser(String userID, String password) {
+	public String getRoles(String userID, String password) {
 		// TODO Auto-generated method stub
 		String result = null;
 		String sql = "SELECT * FROM " + PATRON_TABLE_NAME + " WHERE "
@@ -130,7 +130,33 @@ public abstract class AbstractUserManager implements UserManager {
 		}
 		return result;
 	}
-
+	public boolean checkUser(String userID, String password) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT * FROM patron where user_name=? and user_pasword=?";
+		Connection connection = SqlExecute.getConnection();
+		if(connection == null){
+			System.out.println("Loi ket noi ");
+			return false;
+		}
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			if(statement == null){
+				System.out.println("loi khoi tao preparedstatement ");
+			}
+			statement.setString(1,userID);
+			statement.setString(2, password);
+			ResultSet result = statement.executeQuery(sql);
+			if(!result.next()){
+				return false;
+			}else{
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
 	// get username with userid
 	// @SuppressWarnings("unused")
 	public String getUserName(String userID) {

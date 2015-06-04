@@ -2,12 +2,12 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>lib_manager</display-name>
   <servlet>
-  	<servlet-name>ControllerTmp</servlet-name>
-  	<servlet-class>controler.Controllertmp</servlet-class>
+    <servlet-name>ControllerTmp</servlet-name>
+    <servlet-class>controler.Controllertmp</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>ControllerTmp</servlet-name>
-  	<url-pattern>/jsp/controllerTmp</url-pattern>
+    <servlet-name>ControllerTmp</servlet-name>
+    <url-pattern>/jsp/controllerTmp</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -40,4 +40,13 @@
       <page-encoding>UTF-8</page-encoding>
     </jsp-property-group>
   </jsp-config>
+   <error-page>
+    <error-code>404</error-code>
+    <location>/errorHandler.jsp</location>
+  </error-page>
+
+  <error-page>
+  	<error-code>500</error-code>
+  	<location>/actionNotAllowed.jsp</location>
+  </error-page>
 </web-app>

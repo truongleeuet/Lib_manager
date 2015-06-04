@@ -51,7 +51,7 @@ public interface UserManager {
    * @return Type_of_patron if userName and password validate
    * 			null if failse
    */
-  public String checkUser(String userName, String password);
+  public boolean checkUser(String userName, String password);
 
   /**
    * Get all patron which is saved in Database
@@ -69,4 +69,6 @@ public interface UserManager {
   public List<Patron> search(String commad);
   
   public String getUserName(String userID);
+  
+  public String getRoles(String userName, String password);
 }

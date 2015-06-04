@@ -17,8 +17,8 @@
 	</script>
 
 	<title>Your Company Website</title> <%
- 	String logedIn = (String) session.getAttribute("login.done");
- 	String roles = (String) session.getAttribute("patron.roles");
+ 	String logedIn = (String) session.getAttribute("login_done");
+ 	String roles = (String) session.getAttribute("patron_roles");
  	//logedIn = "nttuyen";
  	if (logedIn == null || !"PATRON_LIB_MANAGER".equals(roles)) {
  		response.sendRedirect("login.jsp");

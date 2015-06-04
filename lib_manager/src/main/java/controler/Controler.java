@@ -206,6 +206,7 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		} else if ("LOAD".equals(checkInType)) {
 			request.setAttribute("resourceBorrow", resourceBorrow);
 			jsp = "loadCheckIn.jsp";
+			dispatch(jsp, request, response);
 		} else if ("DELETE".equals(checkInType)) {
 			// resourceBorrowManager.remove(resourceBorrow.getResourceID(),resourceBorrow.getPatronID());
 			// DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -217,8 +218,9 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			resourceBorrowManager.addBorrowWithPayDate(resourceBorrow);
 			resourceManager.creaseAmount(Isbn);
 			jsp = "index.jsp";
+			dispatch(jsp, request, response);
 		}
-		dispatch(jsp, request, response);
+//		dispatch(jsp, request, response);
 	}
 
 	public void checkOut(HttpServletRequest request,
@@ -612,7 +614,7 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 			request.setAttribute("messageErr", messageErr);
 		} else {
 			userManager.remove(userName);
-			jsp = "index.jsp";
+			jsp = "body.jsp";
 		}
 		dispatch(jsp, request, response);
 	}
@@ -867,9 +869,11 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		ResourceBorrowManagerImpl resbomanager = new ResourceBorrowManagerImpl();
 		List<ResourceBorrow> listborrow = resbomanager.showDiaryUser(userID);
 		HttpSession session = request.getSession();
-		if (listborrow != null) {
+		if (!listborrow.isEmpty()) {
 			session.setAttribute("listborrowuser", listborrow);
 			jsp = "diaryuser.jsp";
+		}else{
+			request.setAttribute("messageErr","Mã người dùng này chưa có trong thư viện vui lòng nhập lại");
 		}
 		dispatch(jsp, request, response);
 	}
@@ -880,9 +884,15 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		ResourceBorrowManagerImpl resbomanager = new ResourceBorrowManagerImpl();
 		List<ResourceBorrow> listborrow = resbomanager.showDiaryBook(bookIsbn);
 		HttpSession session = request.getSession();
-		if (listborrow != null) {
+		System.out.println(listborrow);
+		if (!listborrow.isEmpty()) {
 			session.setAttribute("listborrowbook", listborrow);
 			jsp = "diarybook.jsp";
+			
+		}else{
+			request.setAttribute("messageErr","Mã sách này chưa có trong thư viện vui lòng nhập lại");
+			jsp = "diarybook.jsp";
+			
 		}
 		dispatch(jsp, request, response);
 	}
@@ -897,13 +907,14 @@ public class Controler extends javax.servlet.http.HttpServlet implements
 		System.out.println(password);
 
 		UserManager userManager = new StudentManager();
-		roles = userManager.checkUser(userName, password);
+		boolean result  = userManager.checkUser(userName, password);
+		roles = userManager.getRoles(userName, password);
 		System.out.println(roles);
-		if (roles != null) {
+		if (result == true) {
 			jsp = "index.jsp";
 			logedIn = userName;
-			session.setAttribute("login.done", logedIn);
-			session.setAttribute("patron.roles", roles);
+			session.setAttribute("login_done", logedIn);
+			session.setAttribute("patron_roles", roles);
 		} else {
 			jsp = "login.jsp";
 			request.setAttribute("messageErr",

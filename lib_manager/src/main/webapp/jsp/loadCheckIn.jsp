@@ -31,8 +31,8 @@
 							});
 						</script>
 						<title>Your Company Website</title> <%
- 	String logedIn = (String) session.getAttribute("login.done");
- 	String roles = (String) session.getAttribute("patron.roles");
+ 	String logedIn = (String) session.getAttribute("login_done");
+ 	String roles = (String) session.getAttribute("patron_roles");
  	//logedIn = "nttuyen";
 
  	//Patron patron = (Patron)request.getAttribute("patron_borrow");
@@ -77,39 +77,31 @@
 
 
 						<link rel="stylesheet" type="text/css" href="css/style.css">
-							<style type="text/css">
-<!--
-.style1 {
-	color: #999999;
-	font-size: 14px;
-	font-weight: bold;
-}
--->
-</style>
+
 </head>
 
 <body>
 
-	<table>
-		<tr valign="top">
-			<td>
-				<div>
-					<!-- Header -->
-					<jsp:include page="header.jsp" />
-					<!--  End Header -->
-				</div>
-				<div>
-					<jsp:include page="carousel.jsp" flush="true" />
-				</div>
-				<div class="wrapmiddel">
-					<div class="sidebar">
-						<jsp:include page="sidebar.jsp" flush="true" />
-					</div>
+<!-- 	<table> -->
+<!-- 		<tr valign="top"> -->
+<!-- 			<td> -->
+<!-- 				<div> -->
+<!-- 					Header -->
+<%-- 					<jsp:include page="header.jsp" /> --%>
+<!-- 					 End Header -->
+<!-- 				</div> -->
+<!-- 				<div> -->
+<%-- 					<jsp:include page="carousel.jsp" flush="true" /> --%>
+<!-- 				</div> -->
+<!-- 				<div class="wrapmiddel"> -->
+<!-- 					<div class="sidebar"> -->
+<%-- 						<jsp:include page="sidebar.jsp" flush="true" /> --%>
+<!-- 					</div> -->
 
 
-					<div align="center">
-						<p align="center">..:: Home &gt; Đặt sách::..</p>
-					</div>
+<!-- 					<div align="center"> -->
+<!-- 						<p align="center">..:: Home &gt; Đặt sách::..</p> -->
+<!-- 					</div> -->
 					<table>
 						<tr valign="top">
 							<td width="45%">
@@ -203,13 +195,13 @@
 							</td>
 						</tr>
 					</table>
-				</div>
-				<div>
-					<%@include file="footer.jsp"%>
-				</div>
-			</td>
-		</tr>
-	</table>
+<!-- 				</div> -->
+<!-- 				<div> -->
+<%-- 					<%@include file="footer.jsp"%> --%>
+<!-- 				</div> -->
+<!-- 			</td> -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
 
 </body>
 </html>

@@ -1,3 +1,4 @@
+<script type="text/javascript" src="jquery/jquery-1.11.2.min.js"></script>
 
 <script>
 	$(document).ready(function() {
@@ -24,8 +25,8 @@
 </script>
 
 <%
-	String logedIn = (String) session.getAttribute("login.done");
-	String roles = (String) session.getAttribute("patron.roles");
+	String logedIn = (String) session.getAttribute("login_done");
+	String roles = (String) session.getAttribute("patron_roles");
 %>
 <link rel="stylesheet" type="text/css" href="css/sidebar.css" />
 <link rel="stylesheet" type="text/css" href="css/style1.css" />
@@ -54,6 +55,7 @@
 						%>
 
 					</ul></li>
+					
 				<%
 					if ("PATRON_LIB_MANAGER".equals(roles)) {
 				%>

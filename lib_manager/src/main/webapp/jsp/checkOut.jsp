@@ -23,8 +23,8 @@
 `
 <title>check out - lib manager sys</title>
 <%
-	String logedIn = (String) session.getAttribute("login.done");
-	String roles = (String) session.getAttribute("patron.roles");
+	String logedIn = (String) session.getAttribute("login_done");
+	String roles = (String) session.getAttribute("patron_roles");
 
 	//Nếu chưa đăng nhập hoặc không fải là nhân viên thư viện thì không được truy cập trang này
 	if (logedIn == null || !"PATRON_LIB_MANAGER".equals(roles)) {

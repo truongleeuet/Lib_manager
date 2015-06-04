@@ -78,6 +78,13 @@
 					</tr>
 					<tr>
 						<td><p>
+								<strong>Tên sách : </strong>
+							</p></td>
+						<td><p>${requestScope.book_edit.name }</p></td>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td><p>
 								<strong>Thuộc lĩnh vực : </strong>
 							</p></td>
 						<td><p><%=book.getCategories()%></p></td>

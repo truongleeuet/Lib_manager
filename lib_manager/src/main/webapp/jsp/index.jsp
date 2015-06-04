@@ -14,9 +14,14 @@
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 		<script type="text/javascript" src="jquery/jquery-1.11.2.min.js"></script>
-		<script
-			src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
+<!-- 		<script -->
+<!-- 			src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.css.map">
+<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css.map">
+<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
 		<script language="JavaScript">
 			function calcHeight() {
 				var dodai_trang = document.getElementById('Shacker').contentWindow.document.body.scrollHeight;
@@ -26,8 +31,8 @@
 
 
 		<title>Home - Lib manager Sys</title> <%
- 	String logedIn = (String) session.getAttribute("login.done");
- 	String roles = (String) session.getAttribute("patron.roles");
+ 	String logedIn = (String) session.getAttribute("login_done");
+ 	String roles = (String) session.getAttribute("patron_roles");
  %>
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
@@ -42,9 +47,9 @@
 					<jsp:include page="header.jsp" />
 					<!--  End Header -->
 				</div>
-				<div>
-					<jsp:include page="carousel.jsp" flush="true" />
-				</div>
+<!-- 				<div> -->
+<%-- 					<jsp:include page="carousel.jsp" flush="true" /> --%>
+<!-- 				</div> -->
 				<div class="wrapmiddel">
 					<div class="sidebar">
 						<jsp:include page="sidebar.jsp" flush="true" />
@@ -52,8 +57,8 @@
 					<div class="body">
 						<iframe id="Shacker" src="body.jsp" name="iframe_book"
 							onLoad="calcHeight();" scrolling="no" MARGINWIDTH=0
-     MARGINHEIGHT=0></iframe>
-<%-- 							<jsp:include page="body.jsp" flush="true"/> --%>
+							MARGINHEIGHT=0></iframe>
+						<%-- 							<jsp:include page="body.jsp" flush="true"/> --%>
 					</div>
 				</div>
 				<div>

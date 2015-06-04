@@ -1,10 +1,15 @@
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> -->
 <script type="text/javascript" src="jquery/jquery-1.11.2.min.js"></script>
 <!-- <script src="//code.jquery.com/jquery-1.11.2.js"></script> -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.css.map">
+<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css.map">
+<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('ul.nav > li ').click(function(e) {
@@ -20,10 +25,7 @@ $(document).ready(function(){
     $(".dropdown-toggle").dropdown();
 });  
 </script>
-<%
-	String logedIn = (String) session.getAttribute("login.done");
-	String roles = (String) session.getAttribute("patron.roles");
-%>
+
 <link rel="stylesheet" type="text/css" href="css/header.css" />
 
 
@@ -32,23 +34,21 @@ $(document).ready(function(){
 			<img src="img/logo.gif" class="imgcompany">
 		</div>
 		<div class="user">
-			<%
-				if (logedIn == null) {
-			%>
+			<c:if test="${sessionScope.login_done eq null}">
+		
 			<p align="right">
 				&nbsp;&nbsp; Guest &nbsp;&nbsp; |&nbsp;&nbsp; <a href="login.jsp" >Login</a>
 				&nbsp;&nbsp;
 			</p>
-			<%
-				} else {
-			%>
+			</c:if>
+
+			<c:if test="${sessionScope.login_done ne null}">
 			<p align="right">
-				<a href="#"><%=logedIn%></a> | <a href="controler?action=LOGOUT">Logout</a>
+				<a href="#">${sessionScope.login_done }</a> | <a href="controler?action=LOGOUT">Logout</a>
 				&nbsp;
 			</p>
-			<%
-				}
-			%>
+			</c:if>
+			
 		</div>
 		<div class="menuheader">
 			<ul class="nav nav-pills">
