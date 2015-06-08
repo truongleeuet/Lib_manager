@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 
 
 public class SqlExecute {
-	private static String config="config.config";
+//	private static String config="config.config";
 	private static ResourceBundle resource;
 	
 	static{

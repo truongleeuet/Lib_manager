@@ -5,10 +5,11 @@
 <%@page import="java.util.concurrent.TimeUnit"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@ page contentType="text/html; charset=utf-8" language="java"
-	errorPage=""%>
 <%@page import="java.util.List"%>
 <%@page import="manager.*"%>
+<%@ page contentType="text/html; charset=utf-8" language="java"
+	errorPage=""%>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -59,6 +60,13 @@
 </head>
 
 <body>
+<%-- 	<sql:setDataSource var="worlddata" driver="com.mysql.jdbc.Driver" --%>
+<%-- 				url="jdbc:mysql://127.0.0.1:3306/lib_manager"  --%>
+<%-- 				user="root" --%>
+<%-- 				password="" /> --%>
+<%-- 	<sql:query dataSource="${worlddata}" --%>
+<%-- 			     sql="select * from borrow where user_id =<${ }" var="cityData" /> --%>
+<%-- 	<sql:update ></sql:update> --%>
 
 	<table>
 		<tr valign="top">

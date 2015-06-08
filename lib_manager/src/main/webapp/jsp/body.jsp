@@ -23,8 +23,7 @@
 	int currentPage = 1;
 	if (request.getParameter("page") != null) {
 		try {
-			currentPage = Integer
-					.parseInt(request.getParameter("page"));
+			currentPage = Integer.parseInt(request.getParameter("page"));
 		} catch (Exception e) {
 			currentPage = 1;
 		}

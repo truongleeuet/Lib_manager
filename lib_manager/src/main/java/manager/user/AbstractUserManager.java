@@ -132,7 +132,8 @@ public abstract class AbstractUserManager implements UserManager {
 	}
 	public boolean checkUser(String userID, String password) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM patron where user_name=? and user_pasword=?";
+		String sql = "SELECT * FROM " + PATRON_TABLE_NAME + " WHERE " + PATRON_USER_ID + " = ? "
+				+ " AND " + PATRON_PASSWORD + " = ?";
 		Connection connection = SqlExecute.getConnection();
 		if(connection == null){
 			System.out.println("Loi ket noi ");
@@ -146,13 +147,16 @@ public abstract class AbstractUserManager implements UserManager {
 			statement.setString(1,userID);
 			statement.setString(2, password);
 			ResultSet result = statement.executeQuery(sql);
+			
 			if(!result.next()){
 				return false;
 			}else{
 				return true;
 			}
+		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			System.out.println("Loi o day");
 			e.printStackTrace();
 		}
 		return true;

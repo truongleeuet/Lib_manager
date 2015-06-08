@@ -34,12 +34,12 @@
 </script>
 <title>Login - Lib manager System</title>
 <%
-	String logedIn = (String) session.getAttribute("login.done");
-	String roles = (String) session.getAttribute("patron.roles");
+	String logedIn = (String) session.getAttribute("login_done");
+	String roles = (String) session.getAttribute("patron_roles");
 	//logedIn = "nttuyen";
 	if (logedIn != null) {
-		session.removeAttribute("login.done");
-		session.removeAttribute("patron.roles");
+		session.removeAttribute("login_done");
+		session.removeAttribute("patron_roles");
 	}
 	String messageErr = (String) request.getAttribute("messageErr");
 	if (messageErr == null) {
@@ -73,7 +73,8 @@
 					<table width="710px">
 						<tr>
 							<td>
-								<form name="formLogin" method="post" action="/lib_manager/LoginUser.do">
+								<form name="formLogin" method="post" action="controler">
+<!-- 								/lib_manager/LoginUser.do -->
 									<table align="center">
 										<tr>
 											<td width="23%">&nbsp;</td>

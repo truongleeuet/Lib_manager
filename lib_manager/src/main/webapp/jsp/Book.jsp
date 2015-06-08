@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" language="java"
 	import="java.sql.*" errorPage=""%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@  include file="Function.jsp"%>
 <%@ page import="manager.resource.*"%>
 <%-- <%@ taglib uri="http://weblib.kth.taglib" prefix="weblib" %> --%>
@@ -125,6 +126,7 @@
 <!-- 					</div> -->
 					<div class="body" style="background:#000">
 						<div>
+<%-- 							<c:out value="${phantrang}"></c:out> --%>
 							<%=phantrang%>
 						</div>
 					</div>
